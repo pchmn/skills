@@ -34,4 +34,4 @@ Canonical names, unchanged. See `docs/agents/triage-labels.md`. Issues are judge
 
 ## Fork manifest
 
-This repo is a fork of `mattpocock/skills` (the `upstream` remote). [`docs/fork/`](./docs/fork/README.md) has one entry per fork feature: the upstream text it rewrites and how to verify it. Read it when you change fork behaviour (update the feature's entry in the same PR) and when you sync with upstream (`/sync-upstream` runs its sync check).
+This repo is a fork of `mattpocock/skills` (the `upstream` remote). [`docs/fork/`](./docs/fork/README.md) has one entry per fork feature: the upstream text it rewrites and how to verify it. Read it when you change fork behaviour (update the feature's entry in the same PR) and when you sync with upstream (run `/sync-upstream`, from `skills/misc/sync-upstream`).

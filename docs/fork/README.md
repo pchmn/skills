@@ -28,20 +28,15 @@ Name each hook by a heading or a phrase to search for, never by line number: lin
 
 A PR that adds, changes or removes fork behaviour updates its entry in the same PR (new feature: new file; feature dropped: delete the file).
 
-## Upstream sync check
+## Sync settings
 
-Sync with `git merge upstream/main`, and land a sync PR with a merge commit, never a squash: a squash drops `upstream/main` as a parent, so the merge-base stays put and the next sync replays every upstream change since. Feature PRs can still be squashed.
+Read by `/sync-upstream` (installed from this repo's `skills/misc/sync-upstream`), which merges upstream through a reviewed PR and runs the sync check.
 
-Run after the merge, before pushing (the `/sync-upstream` skill runs the whole sync end to end):
-
-1. List the upstream files the sync changed: `git diff --name-only <previous merge-base> upstream/main`.
-2. Find the features at risk: entries whose **Upstream hooks** name one of those files (`grep -l <path> docs/fork/*.md`).
-3. For each feature at risk:
-   - every hook's phrase is still there: a merge without conflict can still bring back upstream's wording beside the fork's, or drop the fork's sentence when upstream rewrote the paragraph around it;
-   - upstream's own change to that file is carried over, per the entry's **On conflict**;
-   - upstream has not shipped the same behaviour; if it has, propose dropping the fork version rather than keeping both.
-4. Renames: read the new `CHANGELOG.md` entries. A skill or seed file upstream renamed or moved takes its fork edits along, and the entries' paths follow.
-5. Coverage: every upstream file in `git diff --name-only upstream/main...main` appears in at least one entry, `.changeset/` and `docs/fork/` aside. Report any that does not.
-6. `claude plugin validate . --strict` passes.
-
-Done when every feature at risk has a verdict: **intact**, **repaired** (say how), **superseded by upstream**, or **broken** (needs a human), and the coverage report lists no unexplained file.
+- **Upstream**: `mattpocock/skills`
+- **Fork**: `pchmn/skills`
+- **Install**: `npm ci`
+- **Checks**: `npm run check-plugin-version`, `claude plugin validate . --strict`
+- **Release files**: `CHANGELOG.md`, the `version` in `package.json` and in `.claude-plugin/plugin.json`
+- **Ignored paths**: `.changeset/`
+- **PR summary**: upstream's changes grouped by skill, those touching a file an entry names first; new, renamed or removed skills in one line each; the upstream versions spanned, from `CHANGELOG.md`; and whether the set-up repos should re-run `/setup-matt-pocock-skills` (yes when one of its seed files changed: `agent-skills-block.md`, `domain.md`, `triage-labels.md`, `issue-tracker-*.md`).
+- **Extra checks**: for each entry at risk whose hooks are prose, run its **Verify** greps, since prose has no test to fail.
