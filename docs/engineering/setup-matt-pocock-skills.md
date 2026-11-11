@@ -21,7 +21,7 @@ It writes into the repo you run it in:
 | `issue-tracker.md` | `docs/agents/` |
 | `domain.md` | `docs/agents/` |
 | `triage-labels.md` | `docs/agents/`, only when the `triage` skill is installed |
-| An `## Agent skills` block, which also carries the rule that a one-commit change skips its ticket | whichever of `CLAUDE.md` or `AGENTS.md` already exists |
+| An `## Agent skills` block: one pointer per file above, plus the **house conventions** (branching, pull requests, dependencies, code comments, and the rule that a one-commit change skips its ticket) | whichever of `CLAUDE.md` or `AGENTS.md` already exists |
 
 You commit all of it as markdown. There is no user-level or global mode. The config lives in the repo, so every repo gets its own copy.
 
@@ -56,7 +56,7 @@ No. GitHub, GitLab and local markdown under `.scratch/` all ship as ready-made t
 
 **Do I need to re-run it after updating the skills?**
 
-The direct answer after v1.1 was yes. The skill's own closing message is softer. It tells you to re-run only to switch trackers or start over. Both are defensible. The seed templates change between versions, so a `docs/agents/issue-tracker.md` from an older release can go out of date against the skills that now read it. If a downstream skill does something different from what the docs describe, re-run setup. It is cheap.
+Yes, when the house conventions changed. A re-run re-syncs every sub-block of `## Agent skills` that the skill owns (issue tracker, triage labels, domain docs, grilling, branching, pull requests, dependencies, code comments) and shows you the diff first. It leaves any sub-block under another heading alone, so a repo's own rules survive. This is how a rule fixed once in the skills reaches every repo, instead of being corrected by hand in each `AGENTS.md`.
 
 **It wrote to `CLAUDE.md`, but I'm on Codex.**
 
@@ -84,7 +84,8 @@ One long-standing complaint says yes, in these words: *"having a skill to set up
 ## It's working if
 
 - `docs/agents/issue-tracker.md` and `docs/agents/domain.md` exist, plus `triage-labels.md` if `triage` is installed.
-- An `## Agent skills` section appears in the instruction file your harness reads, with a one-line summary pointing at each of those files.
+- An `## Agent skills` section appears in the instruction file your harness reads, with a one-line summary pointing at each of those files and the house conventions below them.
+- Two repos set up from the same version of the skills carry the same house conventions, word for word.
 - The tracker it proposed matches the remote you use, and the label strings match labels that exist in your tracker.
 - Afterwards, `/to-tickets` publishes without asking you where issues live, and `/triage` applies labels rather than inventing them.
 - Nothing in the skill files themselves changed. If setup edited a `SKILL.md`, something went wrong.

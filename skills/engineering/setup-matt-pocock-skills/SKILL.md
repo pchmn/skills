@@ -11,6 +11,7 @@ Scaffold the per-repo configuration that the engineering skills assume:
 - **Issue tracker**: where issues live (GitHub by default; local markdown is also supported out of the box)
 - **Triage labels**: the strings used for the three canonical triage states and the two categories
 - **Domain docs**: where `GLOSSARY.md` and ADRs live, and the consumer rules for reading them
+- **House conventions**: the branching, pull request, dependency and code comment rules every repo shares, written into the `## Agent skills` block
 
 This is a prompt-driven skill, not a deterministic script. Explore, present what you found, confirm with the user, then write.
 
@@ -66,7 +67,7 @@ Offer **multi-context** (a root `GLOSSARY-MAP.md` pointing to per-context `GLOSS
 
 Show the user a draft of:
 
-- The `## Agent skills` block to add to whichever of `CLAUDE.md` / `AGENTS.md` is being edited (see step 4 for selection rules)
+- The `## Agent skills` block to add to, or re-sync in, whichever of `CLAUDE.md` / `AGENTS.md` is being edited (see step 4 for selection rules)
 - The contents of `docs/agents/issue-tracker.md`, `docs/agents/domain.md`, and `docs/agents/triage-labels.md` (the last only when `triage` is installed)
 
 Let them edit before writing.
@@ -81,29 +82,15 @@ Let them edit before writing.
 
 Never create `AGENTS.md` when `CLAUDE.md` already exists (or vice versa); always edit the one that's already there.
 
-If an `## Agent skills` block already exists in the chosen file, update its contents in-place rather than appending a duplicate. Don't overwrite user edits to the surrounding sections.
+Write the block from [agent-skills-block.md](./agent-skills-block.md). It carries the per-repo pointers (issue tracker, triage labels, domain docs) and the **house conventions** every repo shares: branching, pull requests, dependencies, code comments. Copy the house conventions word for word, so a later run can re-sync them. Leave out a sub-block whose condition fails:
 
-The block:
+| Sub-block | Include when |
+| --- | --- |
+| `### Triage labels` (and `docs/agents/triage-labels.md`) | `triage` is installed and Section B ran |
+| `### Grilling` | the `interactive-form` skill is installed |
+| `### Dependencies` | the repo has a `pnpm-workspace.yaml` |
 
-```markdown
-## Agent skills
-
-### Issue tracker
-
-[one-line summary of where issues are tracked]. See `docs/agents/issue-tracker.md`.
-
-A change with no decision to record and no work to defer, that fits in one commit, skips the ticket and goes straight to a PR. Anything else gets its ticket first.
-
-### Triage labels
-
-[one-line summary of the label vocabulary]. See `docs/agents/triage-labels.md`.
-
-### Domain docs
-
-[one-line summary of layout: "single-context" or "multi-context"]. Read `docs/agents/domain.md` before exploring an area, and when a change runs into an ADR.
-```
-
-Include the `### Triage labels` sub-block, and write `docs/agents/triage-labels.md`, only when `triage` is installed and Section B ran. When it isn't, both are omitted.
+If an `## Agent skills` block already exists in the chosen file, re-sync it in place: a sub-block whose heading is in the seed is owned by this skill, so replace its text with the seed's and keep its filled-in summary line. A sub-block under any other heading (`### Engine`, `### Conventions`) belongs to the repo: leave it, and every section outside the block, exactly as it is. Show the user the diff of each replaced sub-block before writing.
 
 When Section B ran on GitHub or GitLab, create each configured label the tracker lacks (`gh label create` / `glab label create`).
 
@@ -119,4 +106,4 @@ For "other" issue trackers, write `docs/agents/issue-tracker.md` from scratch us
 
 ### 5. Done
 
-Tell the user the setup is complete and which engineering skills will now read from these files. Mention they can edit `docs/agents/*.md` directly later; re-running this skill is only necessary if they want to switch issue trackers or restart from scratch.
+Tell the user the setup is complete and which engineering skills will now read from these files. Mention they can edit `docs/agents/*.md` directly later; re-running this skill switches issue trackers, or re-syncs the house conventions after the skills were updated.
