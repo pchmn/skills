@@ -5,6 +5,7 @@
 ## Fork files
 - `skills/misc/sync-upstream/SKILL.md`
 - `skills/misc/sync-upstream/MANIFEST-TEMPLATE.md`: the manifest README a fork starts from
+- `skills-lock.json`, `.claude/skills/sync-upstream/`: this fork's own install of the skill (`npx skills update` after changing it)
 
 ## Upstream hooks
 - `skills/misc/README.md`: "**[sync-upstream]**" entry
