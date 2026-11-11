@@ -30,7 +30,7 @@ A PR that adds, changes or removes fork behaviour updates its entry in the same 
 
 ## Sync settings
 
-Read by `/sync-upstream` (installed from this repo's `skills/misc/sync-upstream`), which merges upstream through a reviewed PR and runs the sync check.
+Read by `/sync-upstream` (`skills/misc/sync-upstream`, installed in each fork that uses it with `npx skills add pchmn/skills --skill sync-upstream`, this one included), which merges upstream through a reviewed PR and runs the sync check.
 
 - **Upstream**: `mattpocock/skills`
 - **Fork**: `pchmn/skills`
