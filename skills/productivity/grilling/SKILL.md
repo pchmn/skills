@@ -27,4 +27,6 @@ Each round the user answers reshapes the tree: settled decisions push the fronti
 
 Finding _facts_ is your job, never the user's. When a frontier question needs a fact from the environment (filesystem, tools, etc.), dispatch a sub-agent with a fresh context window to find it; don't ask the user for anything you could look up yourself. Don't block on it: a running exploration is an unsettled prerequisite, so only the questions downstream of it wait for the sub-agent to report; ask the rest of the frontier now. The _decisions_ are the user's: put each to them and wait.
 
+A session runs at one of two **depths**. The default is **deep**: work the full design tree until the frontier is empty. When the user says **light** (or "quick"): two rounds at most, asking only the questions whose wrong answer would be expensive to reverse; adopt your recommended answer for everything else and list those assumptions at the end.
+
 The session is done when the frontier is empty: every branch of the design tree visited, nothing left silently assumed. Do not act on it until the user confirms you have reached a shared understanding.
