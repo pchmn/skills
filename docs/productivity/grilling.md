@@ -77,7 +77,7 @@ This is a real bug, still unfixed, and users report it across [harnesses](https:
 - A round arrives as a numbered list, each question with its recommendation on a separate `➡️` line, and you can answer the whole round by number.
 - Nothing in a round needs another question in the same round answered first.
 - Later rounds ask things the first round could not have asked.
-- When you ask for a **light** session, it stops after two rounds and lists what it assumed for you.
+- By default it stops after two rounds and lists what it assumed for you; when you ask for a **deep** session, it keeps going until nothing is left open.
 - It goes and looks facts up (reading files, dispatching a sub-agent) rather than asking you something it could have found out.
 - Research running in the background does not stall the round; only the questions that depend on it wait.
 - It stops at the end and asks you to confirm the understanding is shared, instead of starting work.
