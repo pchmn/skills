@@ -1,6 +1,6 @@
 ---
 name: interactive-form
-description: Browser form for answers that are awkward to type in the terminal: a grilling round, or more questions or options than AskUserQuestion takes.
+description: "Browser form for answers that are awkward to type in the terminal: a grilling round, or more questions or options than AskUserQuestion takes."
 allowed-tools: Bash(node *), Bash(curl -s http://localhost:*)
 ---
 
