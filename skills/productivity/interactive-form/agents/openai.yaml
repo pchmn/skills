@@ -1,0 +1,3 @@
+interface:
+  display_name: "Interactive Form"
+  short_description: "Ask a grilling round or a long question set in a browser form"
