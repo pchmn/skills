@@ -36,12 +36,27 @@ The glossary and the ADR have different bars. Most of the trouble with this skil
 | --- | --- | --- |
 | Holds | Terms. What a thing **is**, in one or two sentences, with rejected synonyms under `_Avoid_` | One decision, in one to three sentences: context, choice, reason |
 | Bar to write | A vague term became canonical | **All three**: hard to reverse, surprising without context, the result of a real trade-off |
+| Changed | Edited in place | Rewritten in place while the decision holds; superseded by a new ADR when it is reversed |
 | Written | Inline, the moment the term is settled | Offered, not assumed |
 | Never holds | Implementation details, a [spec](https://www.aihero.dev/ai-coding-dictionary/spec), a scratch pad, general programming concepts | A diary of every choice made this session |
 
-Miss any one of the ADR's three tests and there is no ADR. An easily-reversed decision will just get reversed; an unsurprising one is nobody's question; one with no real alternative records that you did the obvious thing.
+Miss any one of the ADR's three tests and there is no ADR. A choice you can undo in one PR (a layout, a colour, a line of copy) fails the first test, however carefully it was made. An easily-reversed decision will just get reversed; an unsurprising one is nobody's question; one with no real alternative records that you did the obvious thing.
 
 The `GLOSSARY.md` rule matters most, because it is the one that breaks in practice. **It is a glossary and nothing else.** Left unchecked, models treat "write to `GLOSSARY.md`" as permission to persist every answer you give, and the file turns into a running spec. This is the most-reported problem with the skill, across several models.
+
+## A decision, not an inventory
+
+An ADR states the **decision**, in words that stay true as the code grows. "Money is settled once a Season" holds. "Money is settled from two incomes" is an inventory: the first feature that adds a third income makes it false, and every agent that reads it afterwards reports a contradiction.
+
+That is why a collision with an ADR is sorted before it is raised:
+
+| The change | What the agent does |
+| --- | --- |
+| Reverses the decision, or brings back a rejected option | Stops before writing code and waits for you |
+| Extends what the ADR describes, at your request | Rewrites the ADR in the same change and tells you in one line |
+| Breaks the ADR by the agent's own choice | Follows the ADR, or asks |
+
+An ADR carries no "Amendment" sections. It reads as one current decision, and `git log` keeps the history.
 
 ## Cross-referencing, and where it stops
 
@@ -77,6 +92,7 @@ No, and there is no plan for a skill that does. A domain language you do not und
 - It stops you mid-sentence to ask which of two things you meant, instead of picking one and moving on.
 - `GLOSSARY.md` changes **during** the conversation, not in a burst at the end.
 - It refuses to write an ADR for something you could undo tomorrow, and says which of the three tests failed.
+- A feature you asked for that adds a case to an ADR updates that ADR in the same change, without stopping to ask.
 - New entries define what a thing *is* in one or two sentences and name the words you are giving up under `_Avoid_`.
 - It quotes your code back at you when your code and your sentence disagree.
 - `GLOSSARY.md` gets shorter as often as it gets longer.
