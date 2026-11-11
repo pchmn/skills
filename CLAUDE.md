@@ -31,3 +31,7 @@ Every skill that dispatches a subagent says to start it with a fresh context win
 ### Triage labels
 
 Canonical names, unchanged. See `docs/agents/triage-labels.md`. Issues are judged against [`SCOPE.md`](./SCOPE.md).
+
+## Fork manifest
+
+This repo is a fork of `mattpocock/skills` (the `upstream` remote). [`docs/fork/`](./docs/fork/README.md) has one entry per fork feature: the upstream text it rewrites and how to verify it. Read it when you change fork behaviour (update the feature's entry in the same PR) and when you sync with upstream (run its sync check).
