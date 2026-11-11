@@ -44,8 +44,13 @@ When your output names a domain concept (in an issue title, a refactor proposal,
 
 If the concept you need isn't in the glossary yet, that's a signal: either you're inventing language the project doesn't use (reconsider) or there's a real gap (note it for `/domain-modeling`).
 
-## Flag ADR conflicts
+## When a change runs into an ADR
 
-If your output contradicts an existing ADR, surface it explicitly rather than silently overriding:
+Sort the collision before you raise it:
 
-> _Contradicts ADR-0007 (event-sourced orders), but worth reopening because…_
+- **It reverses the decision**, or brings back an option the ADR rejected: surface it before writing code, and wait for the user.
+
+  > _Contradicts ADR-0007 (event-sourced orders), but worth reopening because…_
+
+- **It extends what the ADR describes** (one more case, one more entry in a list the ADR spells out) and the user asked for it: the request is the new decision. Rewrite the ADR in the same change, per `/domain-modeling`'s ADR format, and name it in one line of your reply.
+- **Your own choice would break it**, with nothing in the request asking for that: follow the ADR, or ask.

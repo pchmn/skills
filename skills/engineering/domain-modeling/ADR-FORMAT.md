@@ -14,6 +14,8 @@ Create the `docs/adr/` directory lazily: only when the first ADR is needed.
 
 That's it. An ADR can be a single paragraph. The value is in recording *that* a decision was made and *why*, not in filling out sections.
 
+The title and the text state the **decision**, in words that stay true as the code grows. A count or a list of what exists today ("settled from two incomes", "the three providers") is an inventory: the next feature makes it false and the ADR reads as contradicted. Leave inventories to the code and the glossary, and keep "only" for when exclusivity is the decision itself.
+
 ## Optional sections
 
 Only include these when they add genuine value. Most ADRs won't need them.
@@ -26,11 +28,18 @@ Only include these when they add genuine value. Most ADRs won't need them.
 
 Scan `docs/adr/` for the highest existing number and increment by one.
 
+## Editing an ADR
+
+An ADR reads as one current decision, so a reader never has to replay its history; `git log` keeps that.
+
+- **The decision still holds** and a change extends or sharpens it: rewrite the text in place. Add no "Amendment" section.
+- **The decision is reversed**: write a new ADR, and mark the old one `superseded by ADR-NNNN`.
+
 ## When to offer an ADR
 
 All three of these must be true:
 
-1. **Hard to reverse**: the cost of changing your mind later is meaningful
+1. **Hard to reverse**: the cost of changing your mind later is meaningful. A choice undone in one PR (a layout, a colour, a line of copy) fails this; it belongs in the repo's product doc if it has one, and nowhere otherwise
 2. **Surprising without context**: a future reader will look at the code and wonder "why on earth did they do it this way?"
 3. **The result of a real trade-off**: there were genuine alternatives and you picked one for specific reasons
 
