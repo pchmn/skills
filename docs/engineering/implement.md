@@ -6,7 +6,7 @@ It never reopens the plan. There is no interview, no clarifying round, no propos
 
 ## When to reach for it
 
-Type `/implement`, or the agent reaches for it automatically when you ask it to implement a ticket ("implement #42", in any language). It runs on Sonnet either way.
+Type `/implement`, or the agent reaches for it automatically when you ask it to implement a ticket ("implement #42", in any language). The code is written on Sonnet either way.
 
 Where the work currently lives decides whether this is the right skill:
 
@@ -36,7 +36,7 @@ The same setup configures the issue tracker the tickets live on, and the doc tha
 6. Push and open the pull request, per the Pull requests convention.
 7. Watch the pull request's checks and fix any that go red. The run ends on a green pull request and its URL.
 
-The run is on Sonnet, whatever the session's model: the skill's `model: sonnet` frontmatter switches it for the turn, and the session's model comes back on your next prompt. The decisions were taken upstream, so what is left is execution, at half Opus's price. `code-review` still runs its two sub-agents on Opus, so a stronger model checks the cheaper one's work.
+The session orchestrates on its own model and hands the code to builder [subagents](https://www.aihero.dev/ai-coding-dictionary/subagent) on Sonnet: as many at once as the work splits into, and the same builders again for review findings and red checks, so they keep the context of what they wrote. The decisions were taken upstream, so what is left is execution, at half Opus's price. `code-review` still runs its two sub-agents on Opus, so a stronger model checks the cheaper one's work. In a harness without subagents, the session builds itself.
 
 One run covers one ticket. The tickets [to-tickets](https://aihero.dev/skills-to-tickets) produces are tracer-bullet vertical slices sized to fit a single fresh [context window](https://www.aihero.dev/ai-coding-dictionary/context-window), so the intended rhythm is: clear context, implement one ticket, clear again.
 
@@ -54,7 +54,7 @@ Not with `/implement`: one invocation, one ticket. For a whole spec in one run, 
 
 **I asked it to implement a ticket in plain words. Did it run the skill?**
 
-It should: the skill is model-invoked, so "implement #42" reaches it the same way `/implement #42` does. Look for the Skill tool call at the top of the run, and for the turn switching to Sonnet. If neither shows, type `/implement`.
+It should: the skill is model-invoked, so "implement #42" reaches it the same way `/implement #42` does. Look for the Skill tool call at the top of the run, and for builder subagents on Sonnet. If neither shows, type `/implement`.
 
 **It opened the pull request, but I wanted to look first.**
 
@@ -68,9 +68,9 @@ Probably not. The ticket is more likely too big. A run does codebase exploration
 
 The agent resolved `#2` against another numbered list in context, such as a todo file or checklist, rather than the configured tracker. `implement` fetches a passed reference from the issue tracker and states its title before starting, and asks when the reference is ambiguous. Check that title matches the ticket you meant; passing the issue URL or `owner/repo#2` removes the ambiguity entirely.
 
-**It stopped to ask me something, and the rest ran on my session's model.**
+**Why builder subagents rather than switching the session to Sonnet?**
 
-The `model: sonnet` override lasts one turn, so your answer starts a new turn on the session's model. A ticket that needs questions mid-run is one where the stronger model earns its price anyway. If you want a ticket built on Opus from the start, because it still carries design calls, say so when you ask for it.
+A skill's `model:` frontmatter is ignored in Claude Code's auto mode, and otherwise lasts only one turn, so a question mid-run sent the rest back to the session's model. A subagent's model holds in every mode, and the orchestrator keeps the stronger model for the calls that need it: splitting the work, weighing findings, reading red checks. If you want a ticket built on Opus, because it still carries design calls, say so when you ask for it.
 
 ## It's working if
 
