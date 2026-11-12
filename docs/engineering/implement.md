@@ -34,7 +34,7 @@ The same setup configures the issue tracker the tickets live on, and the doc tha
 4. Stop building when every criterion holds and the full check (typecheck, lint, tests) is green. A criterion met differently, or left out, goes into the pull request rather than going unmentioned. Commit.
 5. Run [code-review](https://aihero.dev/skills-code-review) since the branch's merge-base, fix what it finds or record why not, and commit.
 6. Push and open the pull request, per the Pull requests convention.
-7. Watch the pull request's checks and fix any that go red. The run ends on a green pull request and its URL.
+7. Watch the pull request's checks in the background, so you can keep talking to the session while CI runs, and fix any that go red. The run ends on a green pull request and its URL.
 
 The session orchestrates on its own model and hands the code to builder [subagents](https://www.aihero.dev/ai-coding-dictionary/subagent) on Sonnet: as many at once as the work splits into, and the same builders again for review findings and red checks, so they keep the context of what they wrote. The decisions were taken upstream, so what is left is execution, at half Opus's price. `code-review` still runs its two sub-agents on Opus, so a stronger model checks the cheaper one's work. In a harness without subagents, the session builds itself.
 
