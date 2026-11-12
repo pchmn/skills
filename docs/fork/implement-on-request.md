@@ -15,4 +15,4 @@
 
 ## Verify
 - `grep -c disable-model-invocation skills/engineering/implement/SKILL.md` prints `0`.
-- In a set-up repo, "implement #N" in plain words shows an `implement` Skill tool call, a turn on Sonnet, and ends on a pull request URL with green checks.
+- In a set-up repo, "implement #N" in plain words shows an `implement` Skill tool call, builders on Sonnet, and ends on a pull request URL with green checks.
