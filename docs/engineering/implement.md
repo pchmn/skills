@@ -38,6 +38,8 @@ A run has five steps, in order:
 4. Run the full test suite once, at the end.
 5. Run [code-review](https://aihero.dev/skills-code-review), then commit to the current branch.
 
+The run is on Sonnet, whatever the session's model: the skill's `model: sonnet` frontmatter switches it for the turn, and the session's model comes back on your next prompt. The decisions were taken upstream, so what is left is execution, at half Opus's price. `code-review` still runs its two sub-agents on Opus, so a stronger model checks the cheaper one's work.
+
 One run covers one ticket. The tickets [to-tickets](https://aihero.dev/skills-to-tickets) produces are tracer-bullet vertical slices sized to fit a single fresh [context window](https://www.aihero.dev/ai-coding-dictionary/context-window), so the intended rhythm is: clear context, implement one ticket, commit, clear again. Each ticket is self-contained, so you can discard the previous ticket's context.
 
 ## Pre-agreed seams
@@ -73,6 +75,10 @@ Probably not. The ticket is more likely too big. A run does codebase exploration
 **`/implement #2` in a fresh session worked on something completely unrelated.**
 
 The agent resolved `#2` against another numbered list in context, such as a todo file or checklist, rather than the configured tracker. `implement` now fetches a passed reference from the issue tracker and states its title before starting, and asks when the reference is ambiguous. Check that title matches the ticket you meant; passing the issue URL or `owner/repo#2` removes the ambiguity entirely.
+
+**It stopped to ask me something, and the rest ran on my session's model.**
+
+The `model: sonnet` override lasts one turn, so your answer starts a new turn on the session's model. A ticket that needs questions mid-run is one where the stronger model earns its price anyway. If you want a ticket built on Opus from the start, because it still carries design calls, ask for it in plain words instead of typing `/implement`.
 
 ## It's working if
 

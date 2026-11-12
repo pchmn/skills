@@ -59,6 +59,8 @@ Each smell reads *what it is* → *how to fix*; match it against the diff:
 
 Issue both sub-agent calls together, in the foreground, and aggregate the reports they return.
 
+Run both sub-agents on Opus (`model: "opus"` in Claude Code), whatever model this session runs on: the review must not be weaker than the model that wrote the diff.
+
 **Standards sub-agent prompt** should include:
 
 - The full diff command and commit list.
