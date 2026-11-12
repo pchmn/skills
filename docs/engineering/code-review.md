@@ -68,6 +68,10 @@ Prefer a fresh one. As one reader put it: "Same context reviewing itself isn't r
 
 Both work, and the skill does not decide for you. Per-ticket keeps each diff small enough that the Spec axis has one clear spec to check against, which is the mode `implement` uses. Batching to the end of a branch catches interactions between tickets that the per-ticket passes each miss. If you are unsure, review per ticket and run one final pass against the branch point.
 
+**Which model runs the review?**
+
+Opus, for both sub-agents, whatever model the session runs on. [implement](https://aihero.dev/skills-implement) builds on Sonnet, and a review on the same lighter model would share its blind spots. The skill pins the model in the sub-agent call rather than in its frontmatter, because a frontmatter override is not documented for a skill another skill invokes.
+
 **Can I trust the findings?**
 
 Not without checking. Sub-agent output is a hypothesis, not evidence. One team reported a dozen breaking changes that prose-based reviews had missed. The skill combines the two reports as they are, or lightly cleaned. It does not re-verify each claim against the files, so a finding can cite the wrong location or overstate an impact. Read the citation on each finding before you act on it. The skill requires every finding to carry a citation (a standards rule, a smell plus its hunk, or a spec line), and that is what makes the findings checkable.
