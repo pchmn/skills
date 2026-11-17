@@ -82,7 +82,7 @@ Let them edit before writing.
 
 Never create `AGENTS.md` when `CLAUDE.md` already exists (or vice versa); always edit the one that's already there.
 
-Write the block from [agent-skills-block.md](./agent-skills-block.md). It carries the per-repo pointers (issue tracker, triage labels, domain docs) and the **house conventions** every repo shares: branching, pull requests, dependencies, code comments. Copy the house conventions word for word, so a later run can re-sync them. Leave out a sub-block whose condition fails:
+Write the block from [agent-skills-block.md](./agent-skills-block.md). It carries the per-repo pointers (issue tracker, triage labels, domain docs) and the **house conventions** every repo shares: writing, branching, pull requests, dependencies, code comments. Copy the house conventions word for word, so a later run can re-sync them. Leave out a sub-block whose condition fails:
 
 | Sub-block | Include when |
 | --- | --- |
