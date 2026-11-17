@@ -11,6 +11,7 @@ Scaffold the per-repo configuration that the engineering skills assume:
 - **Issue tracker**: where issues live (GitHub by default; local markdown is also supported out of the box)
 - **Triage labels**: the strings used for the three canonical triage states and the two categories
 - **Domain docs**: where `GLOSSARY.md` and ADRs live, and the consumer rules for reading them
+- **Ticket and pull request templates**: on GitHub, `.github/ISSUE_TEMPLATE/ticket.md` and `.github/pull_request_template.md`, written when the repo has none
 - **House conventions**: the branching, pull request, dependency and code comment rules every repo shares, written into the `## Agent skills` block
 
 This is a prompt-driven skill, not a deterministic script. Explore, present what you found, confirm with the user, then write.
@@ -27,6 +28,7 @@ Look at the current repo to understand its starting state. Read whatever exists;
 - `docs/adr/` and any `src/*/docs/adr/` directories
 - `docs/agents/`: does this skill's prior output already exist?
 - `docs/conventions/`: does the repo already describe its code layout? And is the `code-layout` skill installed? Together these decide the last line of step 5.
+- `.github/ISSUE_TEMPLATE/` and `.github/pull_request_template.md`: does the repo already have a ticket or a pull request template?
 - `.scratch/`: a sign that a local-markdown issue tracker convention is already in use
 - Is the `triage` skill installed? (a `triage` skill folder alongside this one, or `triage` in your available skills.) This decides whether Section B runs at all.
 - Monorepo signals: a `pnpm-workspace.yaml`, a `workspaces` field in `package.json`, or a populated `packages/*` with its own `src/`. These are present only in a genuinely large multi-package repo; their absence means single-context, which is almost every repo.
@@ -70,6 +72,7 @@ Show the user a draft of:
 
 - The `## Agent skills` block to add to, or re-sync in, whichever of `CLAUDE.md` / `AGENTS.md` is being edited (see step 4 for selection rules)
 - The contents of `docs/agents/issue-tracker.md`, `docs/agents/domain.md`, and `docs/agents/triage-labels.md` (the last only when `triage` is installed)
+- On GitHub, the ticket and pull request templates the repo lacks
 
 Let them edit before writing.
 
@@ -104,6 +107,13 @@ Then write the docs files using the seed templates in this skill folder as a sta
 - [domain.md](./domain.md): domain doc consumer rules + layout
 
 For "other" issue trackers, write `docs/agents/issue-tracker.md` from scratch using the user's description.
+
+When the tracker is GitHub, copy each template the repo lacks, word for word:
+
+- [ticket-template.md](./ticket-template.md) to `.github/ISSUE_TEMPLATE/ticket.md`
+- [pull-request-template.md](./pull-request-template.md) to `.github/pull_request_template.md`
+
+A template the repo already has belongs to the repo: leave it as it is, on a re-run too. When `.github/ISSUE_TEMPLATE/` holds a template under another name, ask before adding `ticket.md`.
 
 ### 5. Done
 

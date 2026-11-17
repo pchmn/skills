@@ -22,6 +22,7 @@ It writes into the repo you run it in:
 | `domain.md` | `docs/agents/` |
 | `triage-labels.md` | `docs/agents/`, only when the `triage` skill is installed |
 | An `## Agent skills` block: one pointer per file above, plus the **house conventions** (branching, pull requests, dependencies, code comments, and the rule that a one-commit change skips its ticket) | whichever of `CLAUDE.md` or `AGENTS.md` already exists |
+| `ticket.md` and `pull_request_template.md` | `.github/ISSUE_TEMPLATE/` and `.github/`, only on a GitHub tracker and only when the repo has none |
 
 You commit all of it as markdown. There is no user-level or global mode. The config lives in the repo, so every repo gets its own copy.
 
@@ -57,6 +58,10 @@ No. GitHub, GitLab and local markdown under `.scratch/` all ship as ready-made t
 **Do I need to re-run it after updating the skills?**
 
 Yes, when the house conventions changed. A re-run re-syncs every sub-block of `## Agent skills` that the skill owns (issue tracker, triage labels, domain docs, grilling, branching, pull requests, dependencies, code comments) and shows you the diff first. It leaves any sub-block under another heading alone, so a repo's own rules survive. This is how a rule fixed once in the skills reaches every repo, instead of being corrected by hand in each `AGENTS.md`.
+
+**Does it write the ticket and pull request templates?**
+
+Yes, on a GitHub tracker, and only the ones the repo lacks. `.github/ISSUE_TEMPLATE/ticket.md` gives a ticket its shape (what ships, done when, pointers for the implementing agent) and `docs/agents/issue-tracker.md` tells the ticket-writing skills to follow it. `.github/pull_request_template.md` is the body the `### Pull requests` convention already points at. A template the repo already has is never replaced, and a later run does not re-sync one: edit it in the repo.
 
 **Does it set up the code layout too?**
 
