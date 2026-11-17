@@ -1,0 +1,5 @@
+interface:
+  display_name: "Code Layout"
+  short_description: "Lay out a package by subject, then layer"
+policy:
+  allow_implicit_invocation: false
