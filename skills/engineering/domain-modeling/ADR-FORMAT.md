@@ -16,6 +16,8 @@ That's it. An ADR can be a single paragraph. The value is in recording *that* a 
 
 The title and the text state the **decision**, in words that stay true as the code grows. A count or a list of what exists today ("settled from two incomes", "the three providers") is an inventory: the next feature makes it false and the ADR reads as contradicted. Leave inventories to the code and the glossary, and keep "only" for when exclusivity is the decision itself.
 
+The title says the decision in plain words: it names the concrete thing and what is decided about it ("No barrel file in `core/ui`", not "The kit has no door"). Someone who has never seen the project should understand the title without opening the file. No metaphors, no terms the glossary doesn't define.
+
 ## Optional sections
 
 Only include these when they add genuine value. Most ADRs won't need them.
@@ -23,6 +25,7 @@ Only include these when they add genuine value. Most ADRs won't need them.
 - **Status** frontmatter (`proposed | accepted | deprecated | superseded by ADR-NNNN`): useful when decisions are revisited
 - **Considered Options**: only when the rejected alternatives are worth remembering
 - **Consequences**: only when non-obvious downstream effects need to be called out
+- **Revisit if**: one line naming the concrete event that would reopen the decision (a library gaining a feature, a measured limit being crossed), when there is one
 
 ## Numbering
 

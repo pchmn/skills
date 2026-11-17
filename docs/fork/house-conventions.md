@@ -1,6 +1,6 @@
 # House conventions
 
-`setup-matt-pocock-skills` writes the `## Agent skills` block from a seed that carries the house conventions shared by every repo: the ticketless path for a one-commit change, branching in a worktree per branch, pull requests, the pnpm catalog, code comments, grilling through `interactive-form`. Re-running setup re-syncs the sub-blocks the seed owns and leaves a repo's own sub-blocks alone. (PRs #1, #2)
+`setup-matt-pocock-skills` writes the `## Agent skills` block from a seed that carries the house conventions shared by every repo: the ticketless path for a one-commit change, branching in a worktree per branch, pull requests, the pnpm catalog, code comments, plain-language writing, grilling through `interactive-form`. Re-running setup re-syncs the sub-blocks the seed owns and leaves a repo's own sub-blocks alone. (PRs #1, #2)
 
 ## Fork files
 - `skills/engineering/setup-matt-pocock-skills/agent-skills-block.md`: the seed of the block; edit a house convention here, then re-run setup in each repo

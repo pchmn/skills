@@ -29,7 +29,9 @@ body followed by a blank line and `➡️ Recommended: <your answer>`. Each sect
 `textarea` named `q<n>`, `label: ""`, `value: "yes"`, so submitting untouched accepts every
 recommendation. When the question offers choices, add a `radio` named `q<n>_choice` above it,
 pre-selected on the recommended one, and make the textarea optional (a comment). Put the round's
-context in `intro`, and set `"chat": true`. The form carries the questions: in the terminal,
+context in `intro`, and set `"chat": true`. Add a last section holding one `checkbox`
+named `go`, with the single option "Accept your recommendations for everything still open and
+end the session": a checked `go` is the grilling's **go**. The form carries the questions: in the terminal,
 just say it opened.
 
 ## 2. Serve it

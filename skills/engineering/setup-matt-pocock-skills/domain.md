@@ -54,3 +54,4 @@ Sort the collision before you raise it:
 
 - **It extends what the ADR describes** (one more case, one more entry in a list the ADR spells out) and the user asked for it: the request is the new decision. Rewrite the ADR in the same change, per `/domain-modeling`'s ADR format, and name it in one line of your reply.
 - **Your own choice would break it**, with nothing in the request asking for that: follow the ADR, or ask.
+- **What it rests on has changed**: its **Revisit if** line is met, or a fact it states no longer holds. Surface it like a reversal, naming what changed.

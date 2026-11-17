@@ -18,6 +18,10 @@ A change with no decision to record and no work to defer, that fits in one commi
 
 Ask each round of a grilling session (`grilling`, `grill-with-docs`) through the `interactive-form` skill rather than in the chat, unless the user asks for the terminal.
 
+### Writing
+
+Write tickets, pull requests, ADRs, docs and questions in plain words. A title names the concrete thing and what changes about it, so a reader who has never seen the project understands it without opening it. Use the glossary's terms and ordinary words: no metaphors, no terms of your own. Say each thing once.
+
 ### Branching
 
 One branch per ticket, cut from `origin/main`: `<type>/<issue-number>-<slug>`, where `<type>` is the conventional-commit type of the work and `<slug>` is the kebab-cased ticket title. A ticketless change takes `<type>/<slug>`. Implementation commits land on that branch, never directly on `main`.

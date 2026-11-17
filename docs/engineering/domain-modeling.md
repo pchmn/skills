@@ -48,6 +48,8 @@ The `GLOSSARY.md` rule matters most, because it is the one that breaks in practi
 
 An ADR states the **decision**, in words that stay true as the code grows. "Money is settled once a Season" holds. "Money is settled from two incomes" is an inventory: the first feature that adds a third income makes it false, and every agent that reads it afterwards reports a contradiction.
 
+The title says that decision in plain words, naming the concrete thing: "No barrel file in `core/ui`" rather than "The kit has no door". Someone new to the project should understand it without opening the file. An ADR can also carry a **Revisit if** line naming the concrete event that would reopen it.
+
 That is why a collision with an ADR is sorted before it is raised:
 
 | The change | What the agent does |
@@ -55,6 +57,7 @@ That is why a collision with an ADR is sorted before it is raised:
 | Reverses the decision, or brings back a rejected option | Stops before writing code and waits for you |
 | Extends what the ADR describes, at your request | Rewrites the ADR in the same change and tells you in one line |
 | Breaks the ADR by the agent's own choice | Follows the ADR, or asks |
+| Meets its **Revisit if** line, or a fact it states no longer holds | Raises it like a reversal, naming what changed |
 
 An ADR carries no "Amendment" sections. It reads as one current decision, and `git log` keeps the history.
 
@@ -93,6 +96,7 @@ No, and there is no plan for a skill that does. A domain language you do not und
 - `GLOSSARY.md` changes **during** the conversation, not in a burst at the end.
 - It refuses to write an ADR for something you could undo tomorrow, and says which of the three tests failed.
 - A feature you asked for that adds a case to an ADR updates that ADR in the same change, without stopping to ask.
+- An ADR's title tells you the decision without opening it, in plain words.
 - New entries define what a thing *is* in one or two sentences and name the words you are giving up under `_Avoid_`.
 - It quotes your code back at you when your code and your sentence disagree.
 - `GLOSSARY.md` gets shorter as often as it gets longer.

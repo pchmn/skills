@@ -10,23 +10,29 @@ Work the tree in **rounds**. The **frontier** is every decision whose prerequisi
 Format a round like so:
 
 ```
-❓ **Q1** - **<question title>**: <question body, might be multiple paragraphs, including multiple choices>
+❓ **Q1** - **<question title>**: <question body, three short lines at most, with the choices as a short list>
 
-➡️ <your recommended answer>
+➡️ <your recommended answer, in one line>
 
 ---
 
-❓ **Q2** - **<question title>**: <question body, might be multiple paragraphs, including multiple choices>
+❓ **Q2** - **<question title>**: <question body, three short lines at most, with the choices as a short list>
 
-➡️ <your recommended answer>
+➡️ <your recommended answer, in one line>
 ```
 
 Word each question so "yes" accepts your recommended answer.
+
+Write plainly. Name the concrete thing the question is about (the file, the screen, the table, the command) and use ordinary words or the glossary's terms: no metaphors, no terms of your own. A question the user would have to ask you to explain is a question to rewrite.
+
+Before the first round, read what is already decided: the docs and ADRs the repo points at, and earlier answers in this conversation. Don't ask a settled question again. Reopen one only when something new bears on it: the request contradicts it, a fact it rests on has changed, or keeping it now takes a workaround. Then ask it as a single question that names the decision and what changed.
 
 Each round the user answers reshapes the tree: settled decisions push the frontier outward and unblock questions that depended on them. Recompute the frontier and ask the next round. A question whose answer depends on another question still open in this round belongs to a _later_ round, not this one.
 
 Finding _facts_ is your job, never the user's. When a frontier question needs a fact from the environment (filesystem, tools, etc.), dispatch a sub-agent with a fresh context window to find it; don't ask the user for anything you could look up yourself. Don't block on it: a running exploration is an unsettled prerequisite, so only the questions downstream of it wait for the sub-agent to report; ask the rest of the frontier now. The _decisions_ are the user's: put each to them and wait.
 
 A session runs at one of two **depths**. The default is **light**: two rounds at most, asking only the questions whose wrong answer would be expensive to reverse; adopt your recommended answer for everything else and list those assumptions at the end. When the user asks for **deep**, work the full design tree.
+
+When the user answers a round with **go**, adopt your recommended answer for every question still open, list those answers as assumptions, and end the session: the go is the confirmation.
 
 A light session is done after its second round, or sooner when no expensive question is left. A deep session is done when the frontier is empty: every branch of the design tree visited, nothing left silently assumed. Do not act on it until the user confirms you have reached a shared understanding.

@@ -64,7 +64,10 @@ The confirmation gate exists for this. The skill is finished when you say the un
 That is a bug in the run, and it is the reason the skill's text separates facts from decisions. It happens most when another skill runs `grilling` to resolve a ticket, and the agent takes that task as permission to keep moving. The same constraint is why there is no async mode. People have asked for a variant that reads a GitHub issue and posts one consolidated decision memo, and that is a different skill, because a grilling session that nobody answers has produced the agent's opinion rather than yours.
 
 **Can I cap the number of questions?**
-No, and a cap is out of scope on purpose. Some plans need three questions and some need fifty; a fixed ceiling either truncates the hard case or feels arbitrary on the easy one. The intended control is plain language. Tell it to wrap up, or stop and accept the plan where it stands. If a session is running very long, the cause is usually that the scope was too big; break the work up and grill the pieces.
+No, and a cap is out of scope on purpose. Some plans need three questions and some need fifty; a fixed ceiling either truncates the hard case or feels arbitrary on the easy one. The intended control is plain language. Answer a round with **go**: the agent takes its recommendation for everything still open, lists those answers as assumptions, and ends the session. What is capped is the length of each question: three short lines, and a one-line recommendation. If a session is running very long, the cause is usually that the scope was too big; break the work up and grill the pieces.
+
+**Will it ever question a decision we already made?**
+Only when something new bears on it. Before the first round it reads what is already decided (the repo's docs and ADRs, earlier answers in the conversation) and does not ask those questions again: asking without new information gets the same answer, or a worse one given to be agreeable. It reopens a decision when the request contradicts it, a fact it rests on has changed, or keeping it now takes a workaround, and then asks it as one question naming the decision and what changed. An ADR can make that trigger explicit with a **Revisit if** line.
 
 **I installed `grill-me` on its own and nothing happens.**
 `grill-me` is a one-line skill whose whole body is "run a `/grilling` session", so it needs this skill installed too. The same is true of `grill-with-docs`, which additionally needs [domain-modeling](https://aihero.dev/skills-domain-modeling). Installing the whole set avoids the problem; installing selectively means installing the primitives as well.
@@ -80,6 +83,9 @@ This is a real bug, still unfixed, and users report it across [harnesses](https:
 - By default it stops after two rounds and lists what it assumed for you; when you ask for a **deep** session, it keeps going until nothing is left open.
 - It goes and looks facts up (reading files, dispatching a sub-agent) rather than asking you something it could have found out.
 - Research running in the background does not stall the round; only the questions that depend on it wait.
+- Each question fits in three short lines and names concrete things in plain words; you never have to ask what a question means.
+- It does not ask again what the repo's docs or ADRs already settle, unless it names what changed.
+- Answering **go** ends the session with the rest of its recommendations listed as assumptions.
 - It stops at the end and asks you to confirm the understanding is shared, instead of starting work.
 - Question count stays high while round count stays low.
 
