@@ -58,6 +58,10 @@ No. GitHub, GitLab and local markdown under `.scratch/` all ship as ready-made t
 
 Yes, when the house conventions changed. A re-run re-syncs every sub-block of `## Agent skills` that the skill owns (issue tracker, triage labels, domain docs, grilling, branching, pull requests, dependencies, code comments) and shows you the diff first. It leaves any sub-block under another heading alone, so a repo's own rules survive. This is how a rule fixed once in the skills reaches every repo, instead of being corrected by hand in each `AGENTS.md`.
 
+**Does it set up the code layout too?**
+
+No. When the repo has no `docs/conventions/` and the `code-layout` skill is installed, setup ends by telling you to run `/code-layout`. It cannot run it for you: a user-invoked skill is reached only by the person typing its name. The `### Conventions` sub-block that skill writes names paths of your repo, so it belongs to the repo and a later setup run leaves it alone.
+
 **It wrote to `CLAUDE.md`, but I'm on Codex.**
 
 This is a known gap, and still open. The file-selection rule is "edit `CLAUDE.md` if it exists, else `AGENTS.md`". It checks which file exists, not which [harness](https://www.aihero.dev/ai-coding-dictionary/harness) is running. In a repo with a `CLAUDE.md` left over from Claude Code, the skill writes its `## Agent skills` block to a file Codex never reads. Users have two workarounds: move the block to `AGENTS.md` by hand, or keep `AGENTS.md` canonical and make `CLAUDE.md` a one-line pointer at it. If neither file exists, the skill asks you which to create instead of picking one. This has confused people who expected it to decide.
