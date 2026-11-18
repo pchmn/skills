@@ -10,7 +10,7 @@
 - `docs/engineering/implement.md`: the whole page
 
 ## On conflict
-- Keep the fork's seven steps and its invocation; carry over an upstream step only if it adds a behaviour the seven lack.
+- Keep the fork's eight steps and its invocation; carry over an upstream step only if it adds a behaviour the eight lack.
 - Upstream rewording of the docs page's shared questions (parallel runs, token cost, the `#2` mix-up) can be taken as is.
 
 ## Verify
