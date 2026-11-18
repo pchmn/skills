@@ -31,7 +31,7 @@ The same setup configures the issue tracker the tickets live on, and the doc tha
 1. Fetch the ticket and state its title.
 2. Start the work's branch, per the Branching convention.
 3. List the acceptance criteria. For each one a test can check, write the test, watch it fail, then write the code that makes it pass. Typecheck and run single test files as it goes.
-4. Stop building when every criterion holds and the full check (typecheck, lint, tests) is green. A criterion met differently, or left out, goes into the pull request rather than going unmentioned. Commit.
+4. Stop building when every criterion holds and the full check (typecheck, lint, tests) is green. The full check runs once, here. Slow suites such as end-to-end tests run locally only when the repo's docs say the change needs them; otherwise CI runs them. A criterion met differently, or left out, goes into the pull request rather than going unmentioned. Commit.
 5. Run [code-review](https://aihero.dev/skills-code-review) since the branch's merge-base, fix what it finds or record why not, and commit.
 6. Push and open the pull request, per the Pull requests convention.
 7. Watch the pull request's checks in the background, so you can keep talking to the session while CI runs, and fix any that go red. The run ends on a green pull request and its URL.
@@ -45,6 +45,10 @@ One run covers one ticket. The tickets [to-tickets](https://aihero.dev/skills-to
 The skill's central idea is that the ticket's **acceptance criteria** (a "Done when" or "Acceptance criteria" section) are both the tests and the finish line. Each criterion a test can check gets that test before its code, so the run cannot call a criterion done while nothing proves it. A build without this bar drifts toward "the code compiles and looks right", and the misses it leaves are exactly the ones a criterion names: a boundary case nobody tested, a requirement swapped for a workaround, a behaviour the ticket said to leave alone.
 
 A criterion no test can check (a device check, a screenshot) still counts. The run either meets it or names it in the pull request as unverified.
+
+## How much it checks
+
+Each step runs the smallest check that answers its question. While building, only the test files the change touches run. The repo's full check runs once, before the commit. Slow suites, such as end-to-end tests or packaging, are left to the pull request's checks unless the repo's docs say when a change needs them locally (for instance, when it touches the desktop app's startup). Write that rule in your `AGENTS.md`; without it, the run leaves those suites to CI.
 
 ## How it edits files
 
