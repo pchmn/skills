@@ -32,6 +32,7 @@ Break the work into **tracer bullet** tickets.
 - A completed slice is demoable or verifiable on its own
 - Each slice is sized to fit in a single fresh context window
 - Any prefactoring should be done first
+- A ticket that adds a screen or changes a screen's layout links the validated prototype it builds, where the repo's `AGENTS.md` says its validated prototypes live (the `prototype/<name>` branch `/prototype` leaves, when it says nothing). With no prototype yet, say so in the quiz: the user prototypes first or accepts the ticket without one. A small change to an existing screen needs none
 
 </vertical-slice-rules>
 

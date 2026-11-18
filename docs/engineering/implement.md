@@ -28,7 +28,7 @@ The same setup configures the issue tracker the tickets live on, and the doc tha
 
 ## What one run does
 
-1. Fetch the ticket and state its title.
+1. Fetch the ticket and state its title. If it adds a screen or changes a layout and links no validated prototype, ask for one first.
 2. List the open pull requests that change the same files. If there are any, name them and ask whether to start now or wait for them to merge.
 3. Start the work's branch, per the Branching convention.
 4. List the acceptance criteria. For each one a test can check, write the test, watch it fail, then write the code that makes it pass. Typecheck and run single test files as it goes.

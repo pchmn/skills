@@ -31,6 +31,8 @@ Look for the originating spec, in this order:
 3. A spec file under `docs/`, `specs/`, or `.scratch/` matching the branch name or feature.
 4. If nothing is found, ask the user where the spec is. If they say there isn't one, the **Spec** sub-agent will skip and report "no spec available".
 
+When the spec links a UI prototype, it is part of the spec. Note the way the repo's docs give to capture the running app's screens, if they give one.
+
 ### 3. Identify the standards sources
 
 Search the repo for every file that documents how code should be written. When `CODING_STANDARDS.md` or `CONTRIBUTING.md` exists, it must be on the list.
@@ -71,6 +73,7 @@ Run both sub-agents on Opus (`model: "opus"` in Claude Code), whatever model thi
 
 - The diff command and commit list.
 - The path or fetched contents of the spec.
+- The linked UI prototype and the repo's capture method, when there are any. Brief: "Capture the screens the diff changes and compare them with the prototype: layout, components, and states it shows. With no capture method, report 'UI not compared with the prototype' as a finding."
 - The brief: "Report: (a) requirements the spec asked for that are missing or partial; (b) behaviour in the diff that wasn't asked for (scope creep); (c) requirements that look implemented but where the implementation looks wrong. Quote the spec line for each finding. Under 400 words."
 
 If the spec is missing, skip the Spec sub-agent and note this in the final report.
