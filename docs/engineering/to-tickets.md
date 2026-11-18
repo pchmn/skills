@@ -41,6 +41,8 @@ The edges are the point of the artifact. They work in two ways, depending on the
 
 Two tickets that change the same modules get an edge too, even when neither needs the other's behaviour: built at the same time, the second one ends in a merge conflict. The quiz names the shared modules, so you can drop the edge when the overlap is trivial.
 
+A ticket that adds a screen or changes a screen's layout links the validated prototype it builds. `to-tickets` looks where your `AGENTS.md` says prototypes live, or on the `prototype/<name>` branch [prototype](https://aihero.dev/skills-prototype) leaves. Without one, the quiz says so: an unsettled screen gets designed during the build, one decision at a time, and drifts from what you pictured.
+
 The edges live in the ticket either way. The tracker only decides whether anything can act on them in parallel. `to-tickets` produces the artifact; running it (one session at a time, or a fleet) is your job, not the skill's.
 
 ## The wide-refactor exception
