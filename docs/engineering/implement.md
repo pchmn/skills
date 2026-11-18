@@ -46,6 +46,10 @@ The skill's central idea is that the ticket's **acceptance criteria** (a "Done w
 
 A criterion no test can check (a device check, a screenshot) still counts. The run either meets it or names it in the pull request as unverified.
 
+## How it edits files
+
+Every edit goes through the harness's file-editing tool, which fails loudly when the text to replace is not there. A shell `str.replace` or `sed -i` does not: the first changes nothing and says nothing when the old text is missing, the second takes different flags on macOS and Linux. To undo a file, the run uses `git restore <path>`, which touches one file; a whole-tree `git checkout -- .` can throw away other work, and auto modes often block it, which stops the run.
+
 ## Common questions
 
 **Can I point it at all my tickets at once, or run several in parallel?**
