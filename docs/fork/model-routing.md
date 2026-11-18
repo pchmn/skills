@@ -1,6 +1,6 @@
 # Model routing
 
-`/implement` writes the code in its own session and spawns Sonnet builders only for large parts that touch separate files; a builder owns its checks. `code-review` reviews on Opus, so a model at least as strong as the one that wrote the diff checks it. (PRs #6, #8, and the PR that made the session build)
+`/implement` writes the code in its own session and spawns Sonnet builders only for large parts that touch separate files; a builder owns its checks. `code-review` reviews on Opus, so a model at least as strong as the one that wrote the diff checks it. (PRs #6, #8, #13)
 
 Routing every ticket through builders cost more than it saved: on two tickets the orchestrator read about 16 M and 27 M tokens re-running checks, reading diffs and debugging CI, as much as its builders, and a builder taking 45 to 56 minutes held the whole session.
 
