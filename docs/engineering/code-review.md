@@ -70,7 +70,7 @@ Both work, and the skill does not decide for you. Per-ticket keeps each diff sma
 
 **Which model runs the review?**
 
-Opus, for both sub-agents, whatever model the session runs on. [implement](https://aihero.dev/skills-implement) builds on Sonnet, and a review on the same lighter model would share its blind spots. The skill pins the model in the sub-agent call rather than in its frontmatter, because a frontmatter override is not documented for a skill another skill invokes.
+Opus, for both sub-agents, whatever model the session runs on. [implement](https://aihero.dev/skills-implement) may build on a lighter model, and a review on that same model would share its blind spots. The skill pins the model in the sub-agent call rather than in its frontmatter, because a frontmatter override is not documented for a skill another skill invokes.
 
 **Can I trust the findings?**
 
