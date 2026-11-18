@@ -5,6 +5,8 @@ description: "Implement a ticket or a spec end to end: branch, build test-first,
 
 You write the code in this session. Spawn builders only when the work splits into large parts that touch separate files and could each be built and checked alone. A builder is a subagent on a lighter model than yours (`model: "sonnet"` in Claude Code), started with a fresh context window. It owns its part's tests and checks and reports what it built and their result: do not re-run its checks or re-read its diff beyond what the review needs.
 
+Edit files with the harness's file-editing tool (Edit in Claude Code), never a shell string replace or `sed -i`: a replace whose old text is missing changes nothing and reports no error, and `sed -i` differs between GNU and BSD. Revert a file with `git restore <path>`, never a whole-tree `git checkout -- .`. A builder's brief says both.
+
 1. If the user passes a ticket reference, fetch it as the issue tracker doc says under "fetch the relevant ticket", and state its title before starting. If the reference is ambiguous, ask. Without one, the work is the spec or plan in the conversation.
 2. Start the work's branch as the repo's Branching convention says. With no convention, stay on the current branch.
 3. List the work's acceptance criteria (a ticket's "Done when" or "Acceptance criteria"). For each criterion a test can check, write that test first and watch it fail, then the code that makes it pass, typechecking and running single test files as you go. A builder gets the criteria of its part, the working tree's path, and this same bar.
