@@ -29,12 +29,13 @@ The same setup configures the issue tracker the tickets live on, and the doc tha
 ## What one run does
 
 1. Fetch the ticket and state its title.
-2. Start the work's branch, per the Branching convention.
-3. List the acceptance criteria. For each one a test can check, write the test, watch it fail, then write the code that makes it pass. Typecheck and run single test files as it goes.
-4. Stop building when every criterion holds and the full check (typecheck, lint, tests) is green. The full check runs once, here. Slow suites such as end-to-end tests run locally only when the repo's docs say the change needs them; otherwise CI runs them. A criterion met differently, or left out, goes into the pull request rather than going unmentioned. Commit.
-5. Run [code-review](https://aihero.dev/skills-code-review) since the branch's merge-base, fix what it finds or record why not, and commit.
-6. Push and open the pull request, per the Pull requests convention.
-7. Watch the pull request's checks in the background, so you can keep talking to the session while CI runs, and fix any that go red. The run ends on a green pull request and its URL.
+2. List the open pull requests that change the same files. If there are any, name them and ask whether to start now or wait for them to merge.
+3. Start the work's branch, per the Branching convention.
+4. List the acceptance criteria. For each one a test can check, write the test, watch it fail, then write the code that makes it pass. Typecheck and run single test files as it goes.
+5. Stop building when every criterion holds and the full check (typecheck, lint, tests) is green. The full check runs once, here. Slow suites such as end-to-end tests run locally only when the repo's docs say the change needs them; otherwise CI runs them. A criterion met differently, or left out, goes into the pull request rather than going unmentioned. Commit.
+6. Run [code-review](https://aihero.dev/skills-code-review) since the branch's merge-base, fix what it finds or record why not, and commit.
+7. Push and open the pull request, per the Pull requests convention.
+8. Watch the pull request's checks in the background, so you can keep talking to the session while CI runs, and fix any that go red. The run ends on a green pull request and its URL.
 
 The session writes the code itself. It spawns builder [subagents](https://www.aihero.dev/ai-coding-dictionary/subagent) on Sonnet only when the ticket splits into large parts that touch separate files, and each builder runs its own part's tests and checks. `code-review` runs its two sub-agents on Opus whatever the session's model, so the review is never weaker than the model that wrote the diff.
 

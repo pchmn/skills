@@ -39,6 +39,8 @@ The edges are the point of the artifact. They work in two ways, depending on the
 | Local markdown | Text in one file per ticket under `.scratch/<feature>/issues/<NN>-<slug>.md`, numbered blockers-first | Top to bottom, by hand |
 | A real tracker (GitHub, Linear) | Native blocking links, or sub-issues where the tracker has them | Any ticket whose blockers are done is on the **frontier** and can be grabbed |
 
+Two tickets that change the same modules get an edge too, even when neither needs the other's behaviour: built at the same time, the second one ends in a merge conflict. The quiz names the shared modules, so you can drop the edge when the overlap is trivial.
+
 The edges live in the ticket either way. The tracker only decides whether anything can act on them in parallel. `to-tickets` produces the artifact; running it (one session at a time, or a fleet) is your job, not the skill's.
 
 ## The wide-refactor exception
