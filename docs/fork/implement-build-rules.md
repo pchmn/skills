@@ -1,6 +1,6 @@
 # Implement build rules
 
-`/implement` edits files with the harness's edit tool and reverts one file with `git restore <path>`, and says so in a builder's brief. It runs the full check once before the commit and leaves slow suites to CI unless the repo's docs say otherwise. (PRs for the edit tool and the check sizes)
+`/implement` edits files with the harness's edit tool and reverts one file with `git restore <path>`, and says so in a builder's brief. It runs the full check once before the commit and leaves slow suites to CI unless the repo's docs say otherwise. (PRs #14, #15)
 
 ## Upstream hooks
 - `skills/engineering/implement/SKILL.md`: "Edit files with the harness's file-editing tool" above the steps, and "Run that check once" in step 4
