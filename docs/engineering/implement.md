@@ -29,12 +29,12 @@ The same setup configures the issue tracker the tickets live on, and the doc tha
 ## What one run does
 
 1. Fetch the ticket and state its title. If it adds a screen or changes a layout and links no validated prototype, ask for one first.
-2. List the open pull requests that change the same files. If there are any, name them and ask whether to start now or wait for them to merge.
+2. List the open pull requests that change the same files, and start anyway. Ask only when the work needs code one of them adds: wait for it, or build on its branch.
 3. Start the work's branch, per the Branching convention.
 4. List the acceptance criteria. For each one a test can check, write the test, watch it fail, then write the code that makes it pass. Typecheck and run single test files as it goes.
 5. Stop building when every criterion holds and the full check (typecheck, lint, tests) is green. The full check runs once, here. Slow suites such as end-to-end tests run locally only when the repo's docs say the change needs them; otherwise CI runs them. A criterion met differently, or left out, goes into the pull request rather than going unmentioned. Commit.
 6. Run [code-review](https://aihero.dev/skills-code-review) since the branch's merge-base, fix what it finds or record why not, and commit.
-7. Push and open the pull request, per the Pull requests convention.
+7. Push and open the pull request, per the Pull requests convention. Its body names the open pull requests found at step 2 and the files they share.
 8. Watch the pull request's checks in the background, so you can keep talking to the session while CI runs, and fix any that go red. The run ends on a green pull request and its URL.
 
 The session writes the code itself. It spawns builder [subagents](https://www.aihero.dev/ai-coding-dictionary/subagent) on Sonnet only when the ticket splits into large parts that touch separate files, and each builder runs its own part's tests and checks. `code-review` runs its two sub-agents on Opus whatever the session's model, so the review is never weaker than the model that wrote the diff.
@@ -51,9 +51,9 @@ A criterion no test can check (a device check, a screenshot) still counts. The r
 
 Each step runs the smallest check that answers its question. While building, only the test files the change touches run. The repo's full check runs once, before the commit. Slow suites, such as end-to-end tests or packaging, are left to the pull request's checks unless the repo's docs say when a change needs them locally (for instance, when it touches the desktop app's startup). Write that rule in your `AGENTS.md`; without it, the run leaves those suites to CI.
 
-## How it edits files
+## How it reverts files
 
-Every edit goes through the harness's file-editing tool, which fails loudly when the text to replace is not there. A shell `str.replace` or `sed -i` does not: the first changes nothing and says nothing when the old text is missing, the second takes different flags on macOS and Linux. To undo a file, the run uses `git restore <path>`, which touches one file; a whole-tree `git checkout -- .` can throw away other work, and auto modes often block it, which stops the run.
+To undo a file, the run uses `git restore <path>`, which touches one file; a whole-tree `git checkout -- .` can throw away other work, and auto modes often block it, which stops the run.
 
 ## Common questions
 
