@@ -61,7 +61,7 @@ Yes, when the house conventions changed. A re-run re-syncs every sub-block of `#
 
 **Does it write the ticket and pull request templates?**
 
-Yes, on a GitHub tracker, and only the ones the repo lacks. `.github/ISSUE_TEMPLATE/ticket.md` gives a ticket its shape (what ships, done when, pointers for the implementing agent) and `docs/agents/issue-tracker.md` tells the ticket-writing skills to follow it. `.github/pull_request_template.md` is the body the `### Pull requests` convention already points at. A template the repo already has is never replaced, and a later run does not re-sync one: edit it in the repo.
+Yes, on a GitHub tracker, and only the ones the repo lacks. `.github/ISSUE_TEMPLATE/ticket.md` gives a ticket its shape (what ships, done when, pointers for the implementing agent) and `docs/agents/issue-tracker.md` tells the ticket-writing skills to follow it. `.github/pull_request_template.md` is the body the `### Pull requests` convention already points at. It is written for a human reviewing an agent's code: besides the behaviour change and the evidence, it says whether a revert would undo the merge and what breaks if it is wrong, shows the shape of the code change, names the places to read closely and what to skim, and lists the choices the agent made that the ticket left open. List the changes your repo always treats as hard to undo (a file format, a public API, a migration) in your docs, so the agent has a rule to follow; or list them in the template itself. A template the repo already has is never replaced, and a later run does not re-sync one: edit it in the repo.
 
 **Does it set up the code layout too?**
 
