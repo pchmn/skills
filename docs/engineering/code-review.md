@@ -45,7 +45,7 @@ This design exists to avoid a generic review skill that does not know your stand
 
 The **smell baseline** sits under the repo's standards. It is twelve code smells from chapter 3 of Fowler's _Refactoring_: Mysterious Name, Duplicated Code, Feature Envy, Data Clumps, Primitive Obsession, Repeated Switches, Shotgun Surgery, Divergent Change, Speculative Generality, Message Chains, Middle Man, Refused Bequest. Each is a labelled heuristic ("possible Feature Envy"), never a hard violation. Each states what the smell is and how to fix it, so a finding comes with a fix attached rather than only a complaint. Both axes skip anything your linter already enforces.
 
-When the spec links a UI prototype, the Spec axis captures the changed screens and compares them with it, using the capture method your docs name (a script that screenshots the app's window, for instance). Without one it reports "UI not compared with the prototype" rather than passing the UI silently.
+When the spec links a UI prototype, the Spec axis captures the changed screens and compares them with it, using the capture method your docs name (a script that screenshots the app's window, for instance). Without one it reports "UI not compared with the prototype" rather than passing the UI silently. A prototype committed on the branch counts as spec, not as code under review. When the diff adds a control, a screen state or on-screen information your design of record does not show, and the spec names no prototype, the Spec axis reports "UI built without a validated prototype".
 
 ## Common questions
 

@@ -32,7 +32,7 @@ Break the work into **tracer bullet** tickets.
 - A completed slice is demoable or verifiable on its own
 - Each slice is sized to fit in a single fresh context window
 - Any prefactoring should be done first
-- A ticket that adds a screen or changes a screen's layout links the validated prototype it builds, where the repo's `AGENTS.md` says its validated prototypes live (the `prototype/<name>` branch `/prototype` leaves, when it says nothing). With no prototype yet, say so in the quiz: the user prototypes first or accepts the ticket without one. A small change to an existing screen needs none
+- A ticket needs a validated prototype when it adds something the user sees or operates that neither the repo's design of record nor the app shows yet: a control, a screen state, or a piece of information on screen. Restyling, relabelling, or reusing a component where the design of record already places it needs none. In the quiz, ask the user when its prototype is made: now, on the ticket's branch, or at implementation. The ticket says it on one line: `Prototype: on branch <branch>` or `Prototype: at implementation`
 
 </vertical-slice-rules>
 
@@ -66,6 +66,8 @@ Publish the approved tickets. **How** depends on the tracker `/setup-matt-pocock
 - **A real issue tracker (GitHub, Linear, …)** → publish one issue per ticket in dependency order (blockers first) so each ticket's blocking edges can reference real identifiers. Use the platform's native blocking relationship where it has one; otherwise set each ticket's "Blocked by" to the blocking issues. If the source was an existing issue, make each ticket its sub-issue (tracker doc's operation). Create each issue with the `ready-for-agent` triage label and its category label (`bug` or `enhancement`) unless instructed otherwise; the tickets are agent-grabbable by construction.
 
 Work the **frontier**: any ticket whose blockers are all done. For a purely linear chain that means top to bottom.
+
+A ticket whose prototype is made now gets its branch right after it is published, since the branch name may need the ticket's number: cut it as the repo's Branching convention says, ask the user to run `/prototype` on it, commit the prototype with the chosen variant without promoting it into the code, push the branch, and write its name on the ticket's `Prototype:` line.
 
 Do NOT close or modify any parent issue.
 

@@ -28,12 +28,12 @@ The same setup configures the issue tracker the tickets live on, and the doc tha
 
 ## What one run does
 
-1. Fetch the ticket and state its title. If it adds a screen or changes a layout and links no validated prototype, ask for one first.
+1. Fetch the ticket and state its title. If it adds a control, a screen state or a piece of information on screen that neither your design of record nor the app shows yet, and names no prototype branch, stop and ask you to run `/prototype` in the session, then build the variant you choose. A UI you reject goes back to `/prototype` the same way.
 2. List the open pull requests that change the same files, and start anyway. Ask only when the work needs code one of them adds: wait for it, or build on its branch.
-3. Start the work's branch, per the Branching convention.
+3. Start the work's branch, per the Branching convention, or from the prototype branch the ticket names.
 4. List the acceptance criteria. For each one a test can check, write the test, watch it fail, then write the code that makes it pass. Typecheck and run single test files as it goes.
 5. Stop building when every criterion holds and the full check (typecheck, lint, tests) is green. The full check runs once, here. Slow suites such as end-to-end tests run locally only when the repo's docs say the change needs them; otherwise CI runs them. A criterion met differently, or left out, goes into the pull request rather than going unmentioned. Commit.
-6. Run [code-review](https://aihero.dev/skills-code-review) since the branch's merge-base, fix what it finds or record why not, and commit.
+6. Run [code-review](https://aihero.dev/skills-code-review) since the branch's merge-base, fix what it finds or record why not, and commit. On a branch started from a prototype branch, revert the prototype's commit last, so the pull request keeps it and the default branch never gets it.
 7. Push and open the pull request, per the Pull requests convention. Its body names the open pull requests found at step 2 and the files they share.
 8. Watch the pull request's checks in the background, so you can keep talking to the session while CI runs, and fix any that go red. The run ends on a green pull request and its URL.
 
