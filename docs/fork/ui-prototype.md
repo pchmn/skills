@@ -1,6 +1,6 @@
 # UI prototype
 
-A ticket needs a validated prototype when it adds a control, a screen state or a piece of information on screen that neither the design of record nor the app shows yet. `to-tickets` asks whether it is made on the ticket's branch now or at implementation; `implement` starts from that branch or stops for `/prototype`, sends a rejected UI back to `/prototype`, and reverts the prototype's commit before the pull request opens; `code-review`'s Spec axis compares the built screens with the prototype, or reports a UI built without one. Where to capture the app comes from the repo's `AGENTS.md`. (PRs #17, #N)
+A ticket needs a validated prototype when it adds a control, a screen state or a piece of information on screen that neither the design of record nor the app shows yet. `to-tickets` asks whether it is made on the ticket's branch now or at implementation; `implement` starts from that branch or stops for `/prototype`, sends a rejected UI back to `/prototype`, and reverts the prototype's commit before the pull request opens; `code-review`'s Spec axis compares the built screens with the prototype, or reports a UI built without one. Where to capture the app comes from the repo's `AGENTS.md`. (PRs #17, #19)
 
 ## Upstream hooks
 - `skills/engineering/to-tickets/SKILL.md`: "needs a validated prototype" in `<vertical-slice-rules>`, and "A ticket whose prototype is made now" under "### 5. Publish the tickets"
