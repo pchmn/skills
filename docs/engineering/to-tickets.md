@@ -41,7 +41,7 @@ The edges are the point of the artifact. They work in two ways, depending on the
 
 Two tickets that change the same modules get an edge too, even when neither needs the other's behaviour: built at the same time, the second one ends in a merge conflict. The quiz names the shared modules, so you can drop the edge when the overlap is trivial.
 
-A ticket that adds a screen or changes a screen's layout links the validated prototype it builds. `to-tickets` looks where your `AGENTS.md` says prototypes live, or on the `prototype/<name>` branch [prototype](https://aihero.dev/skills-prototype) leaves. Without one, the quiz says so: an unsettled screen gets designed during the build, one decision at a time, and drifts from what you pictured.
+A ticket needs a validated prototype when it adds a control, a screen state or a piece of information on screen that neither your design of record nor the app shows yet. Without one, that UI gets designed during the build, one decision at a time, and drifts from what you pictured. The quiz asks when the prototype is made, and the ticket records it: `Prototype: on branch <branch>`, made right after the ticket is published (you run `/prototype` on the ticket's branch and the chosen variant is committed there, not yet promoted into the code), or `Prototype: at implementation`, where [implement](https://aihero.dev/skills-implement) stops and asks you to run it. Either way the prototype stays off the default branch: `implement` reverts its commit before the pull request opens.
 
 The edges live in the ticket either way. The tracker only decides whether anything can act on them in parallel. `to-tickets` produces the artifact; running it (one session at a time, or a fleet) is your job, not the skill's.
 
