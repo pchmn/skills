@@ -19,13 +19,13 @@
 
 -
 
-## Merge Danger
+## Risk of Merging
 
-<!-- Tells the reviewer how slowly to read. Be most careful before writing "two-way" and a small blast radius: you are grading your own change. -->
+<!-- Tells the reviewer how slowly to read. Be most careful before writing that a revert undoes it and little breaks: you are grading your own change. -->
 
-**Door:** <!-- One-way: hard to undo once merged (data or a file format written, a public API or contract changed or removed, something deleted or sent outward, or anything the repo's docs list as one-way). Two-way: a revert undoes it. Name what makes it one-way. -->
+**Undone by a revert:** <!-- Yes, or no and why. No: data or a file format written, a public API or contract changed or removed, something deleted or sent outward, or anything the repo's docs list as hard to undo. -->
 
-**Blast radius:** <!-- What breaks if this is wrong, and for whom. -->
+**What breaks if it is wrong:** <!-- What, and for whom. -->
 
 **Not covered:** <!-- Risks that no test or check in this PR verifies. "None" when there is none. -->
 
@@ -56,6 +56,6 @@
 
 ## Test plan
 
-<!-- The checks that ran, then the ones left to do by hand, step by step. -->
+<!-- The checks left to do by hand, step by step. -->
 
 - [ ]

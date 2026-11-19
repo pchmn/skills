@@ -71,7 +71,7 @@ The pull request is the run's finish line, because that is where checks run and 
 
 **Reviewing the code of an agent's pull request is hard. What helps?**
 
-The body is written for that reader. Besides what changed and how it was checked, it says whether the merge is a one-way door (hard to undo: a file format, a public API, a deletion) or a two-way one, shows the shape of the code change as a small tree or pseudocode, names the two to five places worth reading closely and what can be skimmed, and lists the choices the agent made that the ticket left open. Those choices are where a human review earns its time. The shape comes from the repo's pull request template, which [setup-matt-pocock-skills](https://aihero.dev/skills-setup-matt-pocock-skills) writes; in a repo with its own template, the run fills that one, so carry the sections over by hand.
+The body is written for that reader. Besides what changed and how it was checked, it says whether a revert would undo the merge (a file format, a public API or a deletion would not), what breaks if it is wrong, shows the shape of the code change as a small tree or pseudocode, names the two to five places worth reading closely and what can be skimmed, and lists the choices the agent made that the ticket left open. Those choices are where a human review earns its time. The shape comes from the repo's pull request template, which [setup-matt-pocock-skills](https://aihero.dev/skills-setup-matt-pocock-skills) writes; in a repo with its own template, the run fills that one, so carry the sections over by hand.
 
 **One ticket burned 150k tokens. Am I using it wrong?**
 
