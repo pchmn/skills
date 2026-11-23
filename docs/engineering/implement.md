@@ -28,7 +28,7 @@ The same setup configures the issue tracker the tickets live on, and the doc tha
 
 ## What one run does
 
-1. Fetch the ticket and state its title. If it adds a control, a screen state or a piece of information on screen that neither your design of record nor the app shows yet, and names no prototype branch, stop and ask you to run `/prototype` in the session, then build the variant you choose. A UI you reject goes back to `/prototype` the same way.
+1. Fetch the ticket and state its title. Before building, list each control, screen state or piece of information on screen the work adds, with where it is already shown: your design of record, the app, or the prototype the ticket names. When one is shown nowhere, even on a ticket that names a prototype made for earlier work, stop and ask you to run `/prototype` in the session, then build the variant you choose. A UI you reject goes back to `/prototype` the same way.
 2. List the open pull requests that change the same files, and start anyway. Ask only when the work needs code one of them adds: wait for it, or build on its branch.
 3. Start the work's branch, per the Branching convention, or from the prototype branch the ticket names.
 4. List the acceptance criteria. For each one a test can check, write the test, watch it fail, then write the code that makes it pass. Typecheck and run single test files as it goes. Note each choice the ticket and the docs leave open, with the option set aside.
@@ -88,6 +88,7 @@ Only when the ticket splits into large parts that touch separate files and could
 ## It's working if
 
 - The session opens by reading the ticket and restating what it will build, rather than asking you what to build.
+- Before any UI code, it lists what the work puts on screen and where each piece is already shown, so you can call for a prototype before the build rather than after the pull request.
 - The work lands on its own branch, not on the one you were on.
 - A test for an acceptance criterion fails in the trace before the code that passes it is written.
 - The `code-review` findings come back fixed, or named in the pull request, never dropped.
