@@ -104,7 +104,7 @@ Then write the docs files using the seed templates in this skill folder as a sta
 - [issue-tracker-gitlab.md](./issue-tracker-gitlab.md): GitLab issue tracker
 - [issue-tracker-local.md](./issue-tracker-local.md): local-markdown issue tracker
 - [triage-labels.md](./triage-labels.md): label mapping (only if `triage` is installed)
-- [domain.md](./domain.md): domain doc consumer rules + layout
+- [domain.md](./domain.md): domain doc consumer rules + layout, keeping only the reading rules and layout of the one chosen in Section C
 
 For "other" issue trackers, write `docs/agents/issue-tracker.md` from scratch using the user's description.
 

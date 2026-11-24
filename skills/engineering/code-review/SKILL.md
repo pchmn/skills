@@ -22,6 +22,12 @@ Capture the diff command once: `git diff <fixed-point>...HEAD` (three-dot, so th
 
 Before going further, confirm the fixed point resolves (`git rev-parse <fixed-point>`) and the diff is non-empty. A bad ref or empty diff should fail here, not inside two parallel sub-agents.
 
+Size the review to the diff (`git diff --stat`):
+
+- **Docs or config only** (Markdown, skills, YAML, JSON): no sub-agent. Report "no code to review" and stop.
+- **Small** (under ~50 changed lines of code), with no spec found at step 2: the Standards sub-agent only.
+- **Anything else**: both sub-agents.
+
 ### 2. Identify the spec source
 
 Look for the originating spec, in this order:
