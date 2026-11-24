@@ -1,6 +1,6 @@
 ## What it does
 
-`implement` builds work that has already been decided, from the ticket to a pull request with green checks. You point it at a [ticket](https://www.aihero.dev/ai-coding-dictionary/ticket), a [spec](https://www.aihero.dev/ai-coding-dictionary/spec), or the plan you just agreed in the conversation. It starts the work's branch, writes a failing test for each acceptance criterion before the code that passes it, runs [code-review](https://aihero.dev/skills-code-review), opens the pull request and watches its checks until they are green.
+`implement` builds work that has already been decided, from the ticket to an open pull request. You point it at a [ticket](https://www.aihero.dev/ai-coding-dictionary/ticket), a [spec](https://www.aihero.dev/ai-coding-dictionary/spec), or the plan you just agreed in the conversation. It starts the work's branch, writes a failing test for each acceptance criterion before the code that passes it, runs [code-review](https://aihero.dev/skills-code-review), and opens the pull request.
 
 It never reopens the plan. There is no interview, no clarifying round, no proposal of a different approach. Whatever was settled upstream is the input, and the ticket's acceptance criteria are the bar the run is held to. That is what separates it from typing "build this" at a fresh [agent](https://www.aihero.dev/ai-coding-dictionary/agent), which often redesigns the work while it builds it, and stops at whatever it decides is done.
 
@@ -32,10 +32,9 @@ The same setup configures the issue tracker the tickets live on, and the doc tha
 2. List the open pull requests that change the same files, and start anyway. Ask only when the work needs code one of them adds: wait for it, or build on its branch.
 3. Start the work's branch, per the Branching convention, or from the prototype branch the ticket names.
 4. List the acceptance criteria. For each one a test can check, write the test, watch it fail, then write the code that makes it pass. Typecheck and run single test files as it goes. Note each choice the ticket and the docs leave open, with the option set aside.
-5. Stop building when every criterion holds and the full check (typecheck, lint, tests) is green. The full check runs once, here. Slow suites such as end-to-end tests run locally only when the repo's docs say the change needs them; otherwise CI runs them. A criterion met differently, or left out, goes into the pull request rather than going unmentioned. Commit.
+5. Stop building when every criterion holds and the full check (typecheck, lint, tests) is green. Slow suites such as end-to-end tests run locally only when the repo's docs say the change needs them; otherwise CI runs them. A criterion met differently, or left out, goes into the pull request rather than going unmentioned. Commit.
 6. Run [code-review](https://aihero.dev/skills-code-review) since the branch's merge-base, fix what it finds or record why not, and commit. On a branch started from a prototype branch, revert the prototype's commit last, so the pull request keeps it and the default branch never gets it.
 7. Push and open the pull request, per the Pull requests convention. Its body says how risky the merge is, shows the shape of the change, points at the few places to read closely, and lists the choices noted at step 4. It also names the open pull requests found at step 2 and the files they share.
-8. Watch the pull request's checks in the background, so you can keep talking to the session while CI runs, and fix any that go red. The run ends on a green pull request and its URL.
 
 The session writes the code itself. It spawns builder [subagents](https://www.aihero.dev/ai-coding-dictionary/subagent) on Sonnet only when the ticket splits into large parts that touch separate files, and each builder runs its own part's tests and checks. `code-review` runs its two sub-agents on Opus whatever the session's model, so the review is never weaker than the model that wrote the diff.
 
@@ -49,7 +48,7 @@ A criterion no test can check (a device check, a screenshot) still counts. The r
 
 ## How much it checks
 
-Each step runs the smallest check that answers its question. While building, only the test files the change touches run. The repo's full check runs once, before the commit. Slow suites, such as end-to-end tests or packaging, are left to the pull request's checks unless the repo's docs say when a change needs them locally (for instance, when it touches the desktop app's startup). Write that rule in your `AGENTS.md`; without it, the run leaves those suites to CI.
+Each step runs the smallest check that answers its question. While building, only the test files the change touches run. The repo's full check runs before the commit, and again after fixes that touch code. The pull request's checks report on their own: the run does not wait for them. Slow suites, such as end-to-end tests or packaging, are left to the pull request's checks unless the repo's docs say when a change needs them locally (for instance, when it touches the desktop app's startup). Write that rule in your `AGENTS.md`; without it, the run leaves those suites to CI.
 
 ## How it reverts files
 
@@ -75,7 +74,7 @@ The body is written for that reader. Besides what changed and how it was checked
 
 **One ticket burned 150k tokens. Am I using it wrong?**
 
-Probably not. The ticket is more likely too big. A run does codebase exploration, a red-green loop per criterion, a full check, a review, and a wait on the pull request's checks, so a non-trivial ticket exceeding 100k [tokens](https://www.aihero.dev/ai-coding-dictionary/token) is normal rather than a sign something broke. The fix is upstream. Right-size the tickets in [to-tickets](https://aihero.dev/skills-to-tickets) so each fits one fresh window. If a single ticket keeps going over, split it rather than raising the [effort](https://www.aihero.dev/ai-coding-dictionary/effort) level.
+Probably not. The ticket is more likely too big. A run does codebase exploration, a red-green loop per criterion, a full check and a review, so a non-trivial ticket exceeding 100k [tokens](https://www.aihero.dev/ai-coding-dictionary/token) is normal rather than a sign something broke. The fix is upstream. Right-size the tickets in [to-tickets](https://aihero.dev/skills-to-tickets) so each fits one fresh window. If a single ticket keeps going over, split it rather than raising the [effort](https://www.aihero.dev/ai-coding-dictionary/effort) level.
 
 **`/implement #2` in a fresh session worked on something completely unrelated.**
 
@@ -93,7 +92,7 @@ Only when the ticket splits into large parts that touch separate files and could
 - A test for an acceptance criterion fails in the trace before the code that passes it is written.
 - The `code-review` findings come back fixed, or named in the pull request, never dropped.
 - The pull request's body tells you which few places to read closely and which choices the agent made on its own.
-- The run ends on a pull request URL with its checks green, without you pasting a red CI link back to it.
+- The run ends on the pull request's URL as soon as it is open.
 
 ## Where it fits
 
