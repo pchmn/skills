@@ -12,7 +12,7 @@ A change with no decision to record and no work to defer, that fits in one commi
 
 ### Domain docs
 
-[one-line summary of layout: "single-context" or "multi-context"]. Read `docs/agents/domain.md` before exploring an area, and when a change runs into an ADR.
+[one-line summary of layout: "single-context" or "multi-context", naming where the glossary and the ADRs are]. `docs/agents/domain.md` says what to do when a change runs into an ADR.
 
 ### Grilling
 
