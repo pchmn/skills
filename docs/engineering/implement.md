@@ -29,20 +29,21 @@ The same setup configures the issue tracker the tickets live on, and the doc tha
 ## What one run does
 
 1. Fetch the ticket and state its title. Before building, list each control, screen state or piece of information on screen the work adds, with where it is already shown: your design of record, the app, or the prototype the ticket names. When one is shown nowhere, even on a ticket that names a prototype made for earlier work, stop and ask you to run `/prototype` in the session, then build the variant you choose. A UI you reject goes back to `/prototype` the same way.
-2. List the open pull requests that change the same files, and start anyway. Ask only when the work needs code one of them adds: wait for it, or build on its branch.
-3. Start the work's branch, per the Branching convention, or from the prototype branch the ticket names.
-4. List the acceptance criteria. For each one a test can check, write the test, watch it fail, then write the code that makes it pass. Typecheck and run single test files as it goes. Note each choice the ticket and the docs leave open, with the option set aside.
-5. Stop building when every criterion holds and the full check (typecheck, lint, tests) is green. Slow suites such as end-to-end tests run locally only when the repo's docs say the change needs them; otherwise CI runs them. A criterion met differently, or left out, goes into the pull request rather than going unmentioned. Commit.
-6. Run [code-review](https://aihero.dev/skills-code-review) since the branch's merge-base, fix what it finds or record why not, and commit. On a branch started from a prototype branch, revert the prototype's commit last, so the pull request keeps it and the default branch never gets it.
-7. Push and open the pull request, per the Pull requests convention. Its body says how risky the merge is, shows the shape of the change, points at the few places to read closely, and lists the choices noted at step 4. It also names the open pull requests found at step 2 and the files they share.
+2. Start the work's branch, per the Branching convention, or from the prototype branch the ticket names.
+3. List the acceptance criteria. Write a test first, and watch it fail, for each behaviour that could break without anyone seeing it: logic, a contract between parts, a bug being fixed. Each behaviour is tested once, at the highest level that stays fast. A criterion only the screen shows (layout, spacing, wording) is checked by looking, not by a test. Typecheck and run single test files as it goes. Note each choice a reviewer may want to refuse, with the option set aside.
+4. Stop building when every criterion holds and the full check (typecheck, lint, tests) is green. Slow suites such as end-to-end tests run locally only when the repo's docs say the change needs them; otherwise CI runs them. A criterion met differently, or left out, goes into the pull request rather than going unmentioned. Commit.
+5. Run [code-review](https://aihero.dev/skills-code-review) since the branch's merge-base, fix what it finds or record why not, and commit. On a branch started from a prototype branch, revert the prototype's commit last, so the pull request keeps it and the default branch never gets it.
+6. Push and open the pull request, per the Pull requests convention. Its body says what changes, how risky the merge is, and lists the choices noted at step 3.
 
-The session writes the code itself. It spawns builder [subagents](https://www.aihero.dev/ai-coding-dictionary/subagent) on Sonnet only when the ticket splits into large parts that touch separate files, and each builder runs its own part's tests and checks. `code-review` runs its two sub-agents on Opus whatever the session's model, so the review is never weaker than the model that wrote the diff.
+The session writes the code itself. It spawns builder [subagents](https://www.aihero.dev/ai-coding-dictionary/subagent) on Sonnet only when the ticket splits into large parts that touch separate files, and each builder runs its own part's tests and checks. `code-review` runs its sub-agents on Opus whatever the session's model, so the review is never weaker than the model that wrote the diff.
 
 One run covers one ticket. The tickets [to-tickets](https://aihero.dev/skills-to-tickets) produces are tracer-bullet vertical slices sized to fit a single fresh [context window](https://www.aihero.dev/ai-coding-dictionary/context-window), so the intended rhythm is: clear context, implement one ticket, clear again.
 
 ## Acceptance criteria first
 
-The skill's central idea is that the ticket's **acceptance criteria** (a "Done when" or "Acceptance criteria" section) are both the tests and the finish line. Each criterion a test can check gets that test before its code, so the run cannot call a criterion done while nothing proves it. A build without this bar drifts toward "the code compiles and looks right", and the misses it leaves are exactly the ones a criterion names: a boundary case nobody tested, a requirement swapped for a workaround, a behaviour the ticket said to leave alone.
+The ticket's **acceptance criteria** (a "Done when" or "Acceptance criteria" section) are the finish line. A behaviour that could break without anyone seeing it (logic, a contract between parts, a bug being fixed) gets a test before its code, so the run cannot call it done while nothing proves it.
+
+Not every criterion becomes a test. A criterion only the screen shows (layout, spacing, wording) is checked by looking at the screen, and a behaviour already tested at one level is not tested again at each level below it. A run that turns every criterion into a test leaves a suite as large as the code, slow to run and costly to change, that mostly proves what a glance would.
 
 A criterion no test can check (a device check, a screenshot) still counts. The run either meets it or names it in the pull request as unverified.
 
@@ -70,7 +71,7 @@ The pull request is the run's finish line, because that is where checks run and 
 
 **Reviewing the code of an agent's pull request is hard. What helps?**
 
-The body is written for that reader. Besides what changed and how it was checked, it says whether a revert would undo the merge (a file format, a public API or a deletion would not), what breaks if it is wrong, shows the shape of the code change as a small tree or pseudocode, names the two to five places worth reading closely and what can be skimmed, and lists the choices the agent made that the ticket left open. Those choices are where a human review earns its time. The shape comes from the repo's pull request template, which [setup-matt-pocock-skills](https://aihero.dev/skills-setup-matt-pocock-skills) writes; in a repo with its own template, the run fills that one, so carry the sections over by hand.
+The body is written for that reader, and kept short. Besides what changed, it says whether a revert would undo the merge (a file format, a public API or a deletion would not), what breaks if it is wrong, and lists only the choices the reviewer may want to refuse: a criterion met differently, an addition outside the ticket, a choice that changes what the user sees. Those choices are where a human review earns its time. The shape comes from the repo's pull request template, which [setup-matt-pocock-skills](https://aihero.dev/skills-setup-matt-pocock-skills) writes; in a repo with its own template, the run fills that one, so carry the sections over by hand.
 
 **One ticket burned 150k tokens. Am I using it wrong?**
 
@@ -89,9 +90,9 @@ Only when the ticket splits into large parts that touch separate files and could
 - The session opens by reading the ticket and restating what it will build, rather than asking you what to build.
 - Before any UI code, it lists what the work puts on screen and where each piece is already shown, so you can call for a prototype before the build rather than after the pull request.
 - The work lands on its own branch, not on the one you were on.
-- A test for an acceptance criterion fails in the trace before the code that passes it is written.
+- A test for a behaviour fails in the trace before the code that passes it is written, and no test checks only a layout or a wording.
 - The `code-review` findings come back fixed, or named in the pull request, never dropped.
-- The pull request's body tells you which few places to read closely and which choices the agent made on its own.
+- The pull request's body is short, and lists the choices the agent made that you may want to refuse.
 - The run ends on the pull request's URL as soon as it is open.
 
 ## Where it fits

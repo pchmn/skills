@@ -1,6 +1,6 @@
 # Implement on request
 
-`implement` is model-invoked, so "implement #42" reaches it as `/implement #42` does. A run starts the work's branch, writes a failing test first for each acceptance criterion, runs `code-review`, opens the pull request and watches its checks until they are green. (PR #7)
+`implement` is model-invoked, so "implement #42" reaches it as `/implement #42` does. A run starts the work's branch, writes a failing test first for each behaviour that could break unseen, runs `code-review` and opens the pull request. (PR #7)
 
 ## Upstream hooks
 - `skills/engineering/implement/SKILL.md`: the whole body and the description; no `disable-model-invocation`

@@ -5,7 +5,7 @@
 Routing every ticket through builders cost more than it saved: on two tickets the orchestrator read about 16 M and 27 M tokens re-running checks, reading diffs and debugging CI, as much as its builders, and a builder taking 45 to 56 minutes held the whole session.
 
 ## Upstream hooks
-- `skills/engineering/implement/SKILL.md`: "You write the code in this session" above the steps, and the builder hand-offs in steps 4 and 6
+- `skills/engineering/implement/SKILL.md`: "You write the code in this session" above the steps, and the builder hand-offs in steps 3 and 5
 - `skills/engineering/code-review/SKILL.md`: "Run both sub-agents on Opus" under "### 4. Spawn both sub-agents in parallel"
 - `docs/engineering/implement.md`: "The session writes the code" under "## What one run does", and the question "When does it spawn builders?"
 - `docs/engineering/code-review.md`: the question "Which model runs the review?"

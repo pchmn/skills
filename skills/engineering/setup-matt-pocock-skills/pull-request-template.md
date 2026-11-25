@@ -1,25 +1,13 @@
 <!-- Title is a conventional commit: `<type>(<scope>): <subject>` -->
+<!-- Fill a section in a line or two per point; delete a section that would only say "none". -->
 
-## Related Issues
+- Closes #<issue> <!-- or Fixes #<issue>; Refs #<issue> for a related one -->
 
-<!-- Link related tickets or issues. Use "Closes #123" to auto-close. -->
-- Fixes #<issue> (Resolves the issue)
-  or
-- Closes #<issue> (Resolves the issue)
-  and/or
-- Refs #<issue> (Does not resolve the issue, but is related)
+## Summary
 
-## Description
+<!-- What this PR does and why, for a reader who has not read the ticket, in 2 or 3 sentences. Describe the behaviour, not the code. -->
 
-<!-- What this PR does and why, for a reader who has not read the ticket. Describe the behaviour, not the code. -->
-
-## Changes Made
-
-<!-- One behaviour change per line. An acceptance criterion met differently from the ticket, or left out, is named here. -->
-
--
-
-## Risk of Merging
+## Risk of merging
 
 <!-- Tells the reviewer how slowly to read. Be most careful before writing that a revert undoes it and little breaks: you are grading your own change. -->
 
@@ -27,35 +15,14 @@
 
 **What breaks if it is wrong:** <!-- What, and for whom. -->
 
-**Not covered:** <!-- Risks that no test or check in this PR verifies. "None" when there is none. -->
+## Decisions to check
 
-## Code Summary
+<!-- Only what the reviewer may want to refuse: an acceptance criterion met differently or left out, an addition outside the ticket, a choice that changes what the user sees, a code-review finding left as it is (with why). -->
 
-<!-- The shape of the code change, readable before the diff. Pick the smallest view that shows it: pseudocode, a call tree, a component tree, a file tree, a Mermaid diagram, or a `diff` of one of these. Keep only the calls, files and boundaries a reviewer needs. One view, rarely more. -->
-
-## Review Guide
-
-**Read first**
-
-<!-- 2 to 5 places, in reading order, as `path:symbol`, each with one line on why a human should read it closely. -->
 -
-
-**Skim**
-
-<!-- What follows mechanically from the places above: tests that mirror the code, renames, re-exports, docs. -->
--
-
-**Decisions made here**
-
-<!-- Each choice the ticket, the spec and the docs of record left open, with the option set aside; then each code-review finding left as it is, with why. "None" when there is none. -->
--
-
-## Evidence
-
-<!-- Before and after. A screenshot when the change is visual; otherwise the test that failed before and passes now, as pseudocode, or the output that changed. "Tests pass" alone is not evidence. -->
 
 ## Test plan
 
-<!-- The checks left to do by hand, step by step. -->
+<!-- The checks left to do by hand, step by step. A screenshot when the change is visual. -->
 
 - [ ]
