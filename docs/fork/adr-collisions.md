@@ -1,8 +1,9 @@
 # ADR collisions
 
-An agent sorts a collision with an ADR before raising it: a reversal stops and waits, an extension the user asked for rewrites the ADR in the same change, and the agent's own choice follows the ADR. ADRs state a decision rather than an inventory, are rewritten in place while the decision holds, and exclude a choice undone in one PR. (PR #1)
+An agent sorts a collision with an ADR before raising it: a reversal stops and waits, an extension the user asked for rewrites the ADR in the same change, and the agent's own choice follows the ADR. ADRs state a decision rather than an inventory, are rewritten in place while the decision holds, and exclude a choice undone in one PR. `AGENTS.md` points at the glossary and the ADRs without saying when to read them, and names `docs/agents/domain.md` for a collision. (PRs #1, #24)
 
 ## Upstream hooks
+- `skills/engineering/setup-matt-pocock-skills/agent-skills-block.md`: "says what to do when a change runs into an ADR" under "### Domain docs"
 - `skills/engineering/setup-matt-pocock-skills/domain.md`: "## When a change runs into an ADR": the three cases, replacing upstream's "## Flag ADR conflicts"
 - `skills/engineering/domain-modeling/ADR-FORMAT.md`: "a decision, not an inventory" paragraph under the template; "## Editing an ADR"; "A choice undone in one PR" in the "Hard to reverse" test
 - `skills/engineering/domain-modeling/SKILL.md`: "a choice undone in one PR fails this"; "which also covers editing an existing ADR"
