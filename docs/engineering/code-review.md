@@ -4,7 +4,7 @@
 
 The skill never merges or re-ranks the two axes. The report ends with a worst issue *per axis* and declines to name a single winner across them. A change can pass one axis and fail the other. Code that follows every convention but implements the wrong thing passes Standards and fails Spec. Code that does exactly what the [ticket](https://www.aihero.dev/ai-coding-dictionary/ticket) asked but breaks the repo's conventions does the reverse. A blended verdict lets the passing axis hide the failing one.
 
-The review is sized to the diff. A diff of docs or config only spawns no sub-agent. A small code diff (under about 50 lines) with no spec gets the Standards axis only. Anything else gets both.
+The review is sized to the diff. A diff of docs or config only spawns no sub-agent. A code diff with a spec, over about 50 lines, gets both axes. Anything else gets the Standards axis only.
 
 ## When to reach for it
 
@@ -30,7 +30,8 @@ The Spec axis needs a spec to exist and be findable. It looks in this order:
 1. Issue references in the commit messages (`#123`, `Closes #45`, a GitLab `!67`), fetched through the tracker doc.
 2. A path you pass in as an argument.
 3. A spec file under `docs/`, `specs/`, or `.scratch/` matching the branch or feature name.
-4. Asking you.
+
+With none of these, the Spec axis skips without asking you.
 
 Step 1 depends on the tracker doc, which [setup-matt-pocock-skills](https://aihero.dev/skills-setup-matt-pocock-skills) writes. Without it the axis still works if you hand it a path. With no spec at all, the skill skips the Spec sub-agent and the report says "no spec available" rather than inventing requirements.
 

@@ -25,8 +25,8 @@ Before going further, confirm the fixed point resolves (`git rev-parse <fixed-po
 Size the review to the diff (`git diff --stat`):
 
 - **Docs or config only** (Markdown, skills, YAML, JSON): no sub-agent. Report "no code to review" and stop.
-- **Small** (under ~50 changed lines of code), with no spec found at step 2: the Standards sub-agent only.
-- **Anything else**: both sub-agents.
+- **A spec found at step 2**, and over ~50 changed lines of code: both sub-agents.
+- **Anything else**: the Standards sub-agent only.
 
 ### 2. Identify the spec source
 
@@ -35,7 +35,7 @@ Look for the originating spec, in this order:
 1. Issue references in the commit messages (`#123`, `Closes #45`, GitLab `!67`, etc.), fetched via the workflow in the tracker doc.
 2. A path the user passed as an argument.
 3. A spec file under `docs/`, `specs/`, or `.scratch/` matching the branch name or feature.
-4. If nothing is found, ask the user where the spec is. If they say there isn't one, the **Spec** sub-agent will skip and report "no spec available".
+4. If nothing is found, the **Spec** sub-agent skips and the report says "no spec available". Do not ask the user for one.
 
 When the spec links a UI prototype, it is part of the spec. A prototype committed on the branch under review is the spec too, and the Standards axis skips it. Note the way the repo's docs give to capture the running app's screens, if they give one.
 
