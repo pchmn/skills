@@ -1,16 +1,16 @@
 # Implement on request
 
-`implement` is model-invoked, so "implement #42" reaches it as `/implement #42` does. A run starts the work's branch, writes a failing test first for each behaviour that could break unseen, runs `code-review` and opens the pull request. (PR #7)
+`implement` is model-invoked, so "implement #42" reaches it as `/implement #42` does. A run starts the work's branch, builds it, tests what could break unseen, runs `code-review` and opens the pull request. (PR #7)
 
 ## Upstream hooks
 - `skills/engineering/implement/SKILL.md`: the whole body and the description; no `disable-model-invocation`
 - `skills/engineering/implement/agents/openai.yaml`: no `policy` block
 - `README.md` and `skills/engineering/README.md`: the `implement` entry, under **Model-invoked**
-- `skills/engineering/ask-matt/SKILL.md`: "the code gets built test-first" under "## The main flow"
+- `skills/engineering/ask-matt/SKILL.md`: "`/implement` builds the ticket, tests what could break unseen" under "## The main flow"
 - `docs/engineering/implement.md`: the whole page
 
 ## On conflict
-- Keep the fork's eight steps and its invocation; carry over an upstream step only if it adds a behaviour the eight lack.
+- Keep the fork's invocation and its list of expectations; carry over an upstream line only if it adds an expectation the list lacks.
 - Upstream rewording of the docs page's shared questions (parallel runs, token cost, the `#2` mix-up) can be taken as is.
 
 ## Verify
