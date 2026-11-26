@@ -1,6 +1,6 @@
 ## What it does
 
-`implement` builds work that has already been decided, from the ticket to an open pull request. You point it at a [ticket](https://www.aihero.dev/ai-coding-dictionary/ticket), a [spec](https://www.aihero.dev/ai-coding-dictionary/spec), or the plan you just agreed in the conversation. It starts the work's branch, writes a test for each behaviour that could break unseen, before the code when the test calls the logic directly, runs [code-review](https://aihero.dev/skills-code-review), and opens the pull request.
+`implement` builds work that has already been decided, from the ticket to an open pull request. You point it at a [ticket](https://www.aihero.dev/ai-coding-dictionary/ticket), a [spec](https://www.aihero.dev/ai-coding-dictionary/spec), or the plan you just agreed in the conversation. It starts the work's branch, builds it, tests the behaviours that could break unseen, runs [code-review](https://aihero.dev/skills-code-review), and opens the pull request.
 
 It never reopens the plan. There is no interview, no clarifying round, no proposal of a different approach. Whatever was settled upstream is the input, and the ticket's acceptance criteria are the bar the run is held to. That is what separates it from typing "build this" at a fresh [agent](https://www.aihero.dev/ai-coding-dictionary/agent), which often redesigns the work while it builds it, and stops at whatever it decides is done.
 
@@ -17,7 +17,7 @@ Where the work currently lives decides whether this is the right skill:
 | A spec, and the build is small | `/implement` directly against the spec |
 | Only in the conversation you just had, and it's still small | `/implement` right there, in the same window |
 | Not written down anywhere yet | [grill-with-docs](https://aihero.dev/skills-grill-with-docs), or [grill-me](https://aihero.dev/skills-grill-me) if there's no codebase |
-| One concrete behaviour you want test-first, with no spec | [tdd](https://aihero.dev/skills-tdd) directly |
+| One concrete behaviour you want built test-first, with no spec | [tdd](https://aihero.dev/skills-tdd) directly |
 | Already built, and you want it checked | [code-review](https://aihero.dev/skills-code-review) directly |
 
 ## Prerequisites
@@ -28,32 +28,23 @@ The same setup configures the issue tracker the tickets live on, and the doc tha
 
 ## What one run does
 
-1. Fetch the ticket and state its title. Before building, list each control, screen state or piece of information on screen the work adds, with where it is already shown: your design of record, the app, or the prototype the ticket names. When one is shown nowhere, even on a ticket that names a prototype made for earlier work, stop and ask you to run `/prototype` in the session, then build the variant you choose. A UI you reject goes back to `/prototype` the same way.
-2. Start the work's branch, per the Branching convention, or from the prototype branch the ticket names.
-3. List the acceptance criteria. Write a test for each behaviour that could break without anyone seeing it: logic, a contract between parts, a bug being fixed. A test that calls the logic directly comes first and is watched failing; a test that drives a browser or a real process comes after the behaviour works. Each behaviour is tested once, at the highest level that stays fast. A criterion only the screen shows (layout, spacing, wording) is checked by looking, not by a test. Typecheck and run the touched test files as it goes, plus whatever other tests the change calls for. Note each choice a reviewer may want to refuse, with the option set aside.
-4. Stop building when every criterion holds and the repo's check (typecheck, lint) is green and the tests it ran pass. Slow suites such as end-to-end tests run locally only when the repo's docs say the change needs them; otherwise CI runs them. A criterion met differently, or left out, goes into the pull request rather than going unmentioned. Commit.
-5. Run [code-review](https://aihero.dev/skills-code-review) since the branch's merge-base, fix what it finds or record why not, and commit. On a branch started from a prototype branch, revert the prototype's commit last, so the pull request keeps it and the default branch never gets it.
-6. Push and open the pull request, per the Pull requests convention. Its body says what changes, how risky the merge is, and lists the choices noted at step 3.
+How it builds, and which checks it runs along the way, is the agent's call. The repo's docs say how to fetch a ticket, name a branch and write a pull request. What `implement` adds is what you expect of the run and the repo does not show:
 
-The session writes the code itself. It spawns builder [subagents](https://www.aihero.dev/ai-coding-dictionary/subagent) on Sonnet only when the ticket splits into large parts that touch separate files, and each builder runs its own part's tests and checks. `code-review` runs its sub-agents on Opus whatever the session's model, so the review is never weaker than the model that wrote the diff.
+- **UI no one has seen.** Before building, it lists each control, screen state or piece of information on screen the work adds, with where it is already shown: your design of record, the app, or the prototype the ticket names. When one is shown nowhere, even on a ticket that names a prototype made for earlier work, it stops and asks you to run `/prototype` in the session, then builds the variant you choose. A UI you reject goes back to `/prototype` the same way.
+- **Prototype branch.** When the ticket names one, the run starts from it and reverts the prototype's commit last, so the pull request keeps it and the default branch never gets it.
+- **Tests.** A behaviour gets a test only when it could break without anyone seeing it: logic, a contract between parts, a bug being fixed. Each is tested once, at the highest level that stays fast. What only the screen shows (layout, spacing, wording) is checked by looking.
+- **Other sessions share the repo.** To undo a file it runs `git restore <path>`, never a whole-tree `git checkout -- .`, which can throw away other work and which auto modes often block.
+- **Builders.** The session writes the code itself. It spawns builder [subagents](https://www.aihero.dev/ai-coding-dictionary/subagent) on Sonnet only when the work splits into large parts on separate files, and each builder owns its part's checks.
+- **Review.** Before the pull request it runs [code-review](https://aihero.dev/skills-code-review) since the branch's merge-base, and fixes each finding or records why it stays. `code-review` runs its sub-agents on Opus whatever the session's model, so the review is never weaker than the model that wrote the diff.
+- **Pull request.** The body is for a human who reviews code an agent wrote: what changes, how risky the merge is, and each choice a reviewer may want to refuse. The run ends on the pull request's URL and does not wait for its checks.
 
 One run covers one ticket. The tickets [to-tickets](https://aihero.dev/skills-to-tickets) produces are tracer-bullet vertical slices sized to fit a single fresh [context window](https://www.aihero.dev/ai-coding-dictionary/context-window), so the intended rhythm is: clear context, implement one ticket, clear again.
 
-## Acceptance criteria first
+## Which behaviours get a test
 
-The ticket's **acceptance criteria** (a "Done when" or "Acceptance criteria" section) are the finish line. A behaviour that could break without anyone seeing it (logic, a contract between parts, a bug being fixed) gets a test, so the run cannot call it done while nothing proves it. A test that calls the logic directly is written before the code; a browser or process test is written after, because its red-green loop is too slow to pay for itself.
-
-Not every criterion becomes a test. A criterion only the screen shows (layout, spacing, wording) is checked by looking at the screen, and a behaviour already tested at one level is not tested again at each level below it. A run that turns every criterion into a test leaves a suite as large as the code, slow to run and costly to change, that mostly proves what a glance would.
+A behaviour that could break without anyone seeing it (logic, a contract between parts, a bug being fixed) gets a test, so the run cannot call it done while nothing proves it. A behaviour already tested at one level is not tested again at each level below it, and a criterion only the screen shows is checked by looking at the screen. A run that turns every criterion into a test leaves a suite as large as the code, slow to run and costly to change, that mostly proves what a glance would.
 
 A criterion no test can check (a device check, a screenshot) still counts. The run either meets it or names it in the pull request as unverified.
-
-## How much it checks
-
-Each step runs the smallest check that answers its question. While building, the test files the change touches run, and the run chooses which other tests to run: those of a module whose behaviour changed, or the whole suite when the change reaches many modules. The repo's check (typecheck, lint) runs before the commit, and again after fixes that touch code. The pull request's checks run every test the change reaches. The pull request's checks report on their own: the run does not wait for them. Slow suites, such as end-to-end tests or packaging, are left to the pull request's checks unless the repo's docs say when a change needs them locally (for instance, when it touches the desktop app's startup). Write that rule in your `AGENTS.md`; without it, the run leaves those suites to CI.
-
-## How it reverts files
-
-To undo a file, the run uses `git restore <path>`, which touches one file; a whole-tree `git checkout -- .` can throw away other work, and auto modes often block it, which stops the run.
 
 ## Common questions
 
@@ -75,7 +66,7 @@ The body is written for that reader, and kept short. Besides what changed, it sa
 
 **One ticket burned 150k tokens. Am I using it wrong?**
 
-Probably not. The ticket is more likely too big. A run does codebase exploration, a test per behaviour that could break unseen, the repo's check and a review, so a non-trivial ticket exceeding 100k [tokens](https://www.aihero.dev/ai-coding-dictionary/token) is normal rather than a sign something broke. The fix is upstream. Right-size the tickets in [to-tickets](https://aihero.dev/skills-to-tickets) so each fits one fresh window. If a single ticket keeps going over, split it rather than raising the [effort](https://www.aihero.dev/ai-coding-dictionary/effort) level.
+Probably not. The ticket is more likely too big. A run does codebase exploration, tests for the behaviours that could break unseen, the repo's checks and a review, so a non-trivial ticket exceeding 100k [tokens](https://www.aihero.dev/ai-coding-dictionary/token) is normal rather than a sign something broke. The fix is upstream. Right-size the tickets in [to-tickets](https://aihero.dev/skills-to-tickets) so each fits one fresh window. If a single ticket keeps going over, split it rather than raising the [effort](https://www.aihero.dev/ai-coding-dictionary/effort) level.
 
 **`/implement #2` in a fresh session worked on something completely unrelated.**
 
@@ -83,14 +74,14 @@ The agent resolved `#2` against another numbered list in context, such as a todo
 
 **When does it spawn builders?**
 
-Only when the ticket splits into large parts that touch separate files and could each be built and checked alone. Handing every ticket to Sonnet builders looked cheaper, but the orchestrator kept re-running their checks, reading their diffs and debugging CI on its own model, and read as many tokens as the builders it was saving; a builder that took close to an hour also held the whole session. A builder now owns its checks, and the session does not redo them. To keep a ticket on a cheaper model, start the session on that model.
+Only when the ticket splits into large parts that touch separate files and could each be built and checked alone. Handing every ticket to Sonnet builders looked cheaper, but the orchestrator kept re-running their checks, reading their diffs and debugging CI on its own model, and read as many tokens as the builders it was saving; a builder that took close to an hour also held the whole session. A builder now owns its checks. To keep a ticket on a cheaper model, start the session on that model.
 
 ## It's working if
 
 - The session opens by reading the ticket and restating what it will build, rather than asking you what to build.
 - Before any UI code, it lists what the work puts on screen and where each piece is already shown, so you can call for a prototype before the build rather than after the pull request.
 - The work lands on its own branch, not on the one you were on.
-- A test that calls the logic directly fails in the trace before the code that passes it is written, and no test checks only a layout or a wording.
+- Tests cover logic, contracts and fixed bugs, and none checks only a layout or a wording.
 - The `code-review` findings come back fixed, or named in the pull request, never dropped.
 - The pull request's body is short, and lists the choices the agent made that you may want to refuse.
 - The run ends on the pull request's URL as soon as it is open.
